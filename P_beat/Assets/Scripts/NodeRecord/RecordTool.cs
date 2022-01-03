@@ -22,7 +22,7 @@ public class RecordTool : MonoBehaviour
 
     private void Start()
     {
-        sw = new StreamWriter(fs, System.Text.Encoding.Unicode);
+        sw = new StreamWriter(fs, Encoding.Unicode);
         //텍스트 인코딩 방식  유니코드(표준문자)
 
         fs = new FileStream(m_strPath + "Data.txt", FileMode.Create, FileAccess.Write, FileShare.None);

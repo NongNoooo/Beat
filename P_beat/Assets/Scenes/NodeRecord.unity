@@ -211,8 +211,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 351949532}
-  - component: {fileID: 351949531}
   - component: {fileID: 351949530}
+  - component: {fileID: 351949531}
   m_Layer: 0
   m_Name: NodeRecordManager
   m_TagString: Untagged
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 351949529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b75a57f013d9347cc95cecd07f9a0c3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4726e01d377974a739e45133b9484889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tempTime: 0.3
@@ -678,8 +678,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 351949531}
-        m_TargetAssemblyTypeName: RecordTool, Assembly-CSharp
-        m_MethodName: MusicStop
+        m_TargetAssemblyTypeName: NoteTool, Assembly-CSharp
+        m_MethodName: EndMusic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -969,8 +969,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 351949531}
-        m_TargetAssemblyTypeName: RecordTool, Assembly-CSharp
-        m_MethodName: MusicStart
+        m_TargetAssemblyTypeName: NoteTool, Assembly-CSharp
+        m_MethodName: StartMusic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1102,8 +1102,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 351949531}
-        m_TargetAssemblyTypeName: RecordTool, Assembly-CSharp
-        m_MethodName: Record
+        m_TargetAssemblyTypeName: NoteTool, Assembly-CSharp
+        m_MethodName: NoteSave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

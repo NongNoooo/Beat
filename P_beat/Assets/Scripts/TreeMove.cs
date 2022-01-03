@@ -33,7 +33,7 @@ public class TreeMove : MonoBehaviour
     {
         if (other.CompareTag("ePos"))
         {
-            Debug.Log("나무 위치 이동");
+            //Debug.Log("???? ???? ????");
             transform.position = fPos.position;
 
         }
