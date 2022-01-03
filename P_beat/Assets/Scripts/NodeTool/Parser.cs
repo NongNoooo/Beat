@@ -27,6 +27,10 @@ public class Parser : MonoBehaviour
     float currentTime = 0.0f;
     int shotCnt = 0;
 
+
+
+    public GameObject[] nodeEndPos;
+
     void Start()
     {
 
@@ -75,15 +79,23 @@ public class Parser : MonoBehaviour
                 if (currentTime > listFireShotTime[shotCnt])
                 {
                     int idx = listFireObjIdx[shotCnt];
-                    GameObject rndNodePos = nodePos[Random.Range(0, nodePos.Length)];
+
+                    int rndnum = Random.Range(0, nodePos.Length);
+
+                    GameObject rndNodePos = nodePos[rndnum];
+
                     GameObject nodeObj = Instantiate(node[idx]);
+
+                    NodeMove nm = nodeObj.GetComponent<NodeMove>();
+
+                    nm._dir = nodeEndPos[rndnum].transform.position - nodeObj.transform.position;
+
+
                     nodeObj.transform.position = rndNodePos.transform.position;
                     nodeObj.transform.rotation = rndNodePos.transform.rotation;
 
                   print("오브젝트인덱스:" + listFireObjIdx[shotCnt] + " 경과시간: " + listFireShotTime[shotCnt]);
                   
-                    //파티클 이펙트 자동파괴
-                    Destroy(nodeObj, 1.5f);
                     shotCnt++;
 
                 }

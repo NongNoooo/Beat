@@ -6,11 +6,12 @@ public class NodeMove : MonoBehaviour
 {
     float speed = 50.0f;
 
-    public  Vector3 _dir;
+    public Vector3 _dir;
+
 
     void Start()
     {
-        
+
     }
 
 
