@@ -8,10 +8,12 @@ public class NodeMove : MonoBehaviour
 
     public Vector3 _dir;
 
+    GameManager gm;
 
     void Start()
     {
-
+        GameObject gmobj = GameObject.FindGameObjectWithTag("GameManager");
+        gm = gmobj.GetComponent<GameManager>();
     }
 
 
@@ -22,7 +24,7 @@ public class NodeMove : MonoBehaviour
 
     void Move()
     {
-        transform.position += _dir.normalized * speed * Time.deltaTime;
+        transform.position += -transform.forward * speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +32,7 @@ public class NodeMove : MonoBehaviour
         if (other.CompareTag("NodeEnd"))
         {
             Debug.Log("³ëµå »ç¶óÁü");
+            gm.ComboBreak();
             Destroy(gameObject);
         }
     }

@@ -8,6 +8,11 @@ TagManager:
   - ePos
   - NodeEnd
   - NodeFactory
+  - NodeClear
+  - Node
+  - GameManager
+  - Score
+  - Combo
   layers:
   - Default
   - TransparentFX
@@ -18,8 +23,8 @@ TagManager:
   - Post
   - ePos
   - Tree
-  - 
-  - 
+  - EndBar
+  - Node
   - 
   - 
   - 
@@ -42,6 +47,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: 1
+    uniqueID: 2189886063
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

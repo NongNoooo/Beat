@@ -4,37 +4,54 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject node;
+    public int score;
+    public int combo;
 
 
-    public GameObject[] nodeSpawnPos;
+    public GameObject scoreText;
+    public GameObject comboText;
 
-    public GameObject[] nodeEndPos;
+    TextShow ts;
+    TextShow _ts;
 
-    NodeMove nm;
-
-    void Awake()
+    private void Start()
     {
-        node = Resources.Load<GameObject>("Prefabs/Cube");
-
+        ts = scoreText.GetComponent<TextShow>();
+        _ts = comboText.GetComponent<TextShow>();
     }
 
 
-    void Update()
+    public void ComboPlus()
     {
-        NodeCreat();
+        combo += 1;
+        _ts.ComboText();
     }
 
-    void NodeCreat()
+    public void ComboBreak()
     {
-        if (Input.GetMouseButtonDown(0))
+        combo = 0;
+        _ts.ComboText();
+    }
+
+    public void CountScore(string a)
+    {
+        if(a == "Excellent")
         {
-            GameObject _node = Instantiate(node,nodeSpawnPos[1].transform.position,nodeSpawnPos[1].transform.rotation);
-
-            nm = _node.GetComponent<NodeMove>();
-
-            nm._dir = nodeEndPos[1].transform.position - _node.transform.position;
-
+            score += 100;
         }
+        else if(a == "Great")
+        {
+            score += 80;
+        }
+        else if(a == "Good")
+        {
+            score += 40;
+        }
+        else
+        {
+            score += 0;
+        }
+
+        ts.ScoreText();
     }
 }

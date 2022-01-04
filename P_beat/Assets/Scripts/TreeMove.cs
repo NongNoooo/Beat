@@ -8,13 +8,6 @@ public class TreeMove : MonoBehaviour
 
     public Transform fPos;
 
-
-    void Start()
-    {
-        
-    }
-
-
     void Update()
     {
         Move();
@@ -33,7 +26,6 @@ public class TreeMove : MonoBehaviour
     {
         if (other.CompareTag("ePos"))
         {
-            //Debug.Log("???? ???? ????");
             transform.position = fPos.position;
 
         }
