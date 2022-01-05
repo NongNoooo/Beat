@@ -14,6 +14,6 @@ public class GradeText : MonoBehaviour
     {
         Debug.Log("work");
         GameObject tx = Instantiate(a, transform.position, transform.rotation);
-        Destroy(tx, 2.0f);
+        //Destroy(tx, 2.0f);
     }
 }

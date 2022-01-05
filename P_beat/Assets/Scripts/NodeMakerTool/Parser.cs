@@ -44,11 +44,20 @@ public class Parser : MonoBehaviour
 
     public void Parse()
     {
-        TextAsset data = Resources.Load("Data", typeof(TextAsset)) as TextAsset;
-        StringReader sr = new StringReader(data.text);
-        // 먼저 한줄을 읽는다. 
-        string source = sr.ReadLine();
-        string[] values;                // 쉼표로 구분된 데이터들을 저장할 배열 (values[0]이면 첫번째 데이터 )
+        /*        TextAsset data = Resources.Load("Data", typeof(TextAsset)) as TextAsset;
+                StringReader sr = new StringReader(data.text);
+                // 먼저 한줄을 읽는다. 
+                string source = sr.ReadLine();
+                string[] values;                // 쉼표로 구분된 데이터들을 저장할 배열 (values[0]이면 첫번째 데이터 )
+                 텍스트 파일 파서
+        */
+
+
+        //제이슨 파서
+        string json = File.ReadAllText(Application.dataPath + "/Resources/test.json");
+        //List<T> node = new List<T>();
+
+/*        myData = JsonConvert.DeserializeObject<List<Mydata>>(json);
 
         while (source != null)
         {
@@ -63,8 +72,18 @@ public class Parser : MonoBehaviour
             listFireShotTime.Add((float)(Convert.ToDouble(values[1])- MusicManager.instance.tempTime));
 
         }
-
+*/
     }
+
+/*    public void DoRead()
+    {
+        string json = File.ReadAllText(Application.dataPath + "/Resources/test.json");
+        myData = JsonConvert.DeserializeObject<List<Mydata>>(json);
+        for (int i = 0; i < myData.Count; i++)
+        {
+            print("나이" + myData[i].age + "이름" + myData[i].name);
+        }
+    }*/
 
 
     public GameObject[] nodePos;
