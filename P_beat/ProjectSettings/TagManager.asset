@@ -13,6 +13,10 @@ TagManager:
   - GameManager
   - Score
   - Combo
+  - Red
+  - Green
+  - Blue
+  - Mountain
   layers:
   - Default
   - TransparentFX
@@ -52,4 +56,10 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: New Layer
+    uniqueID: 3344495599
+    locked: 0
+  - name: Sun
+    uniqueID: 1187738431
     locked: 0

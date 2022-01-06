@@ -15,7 +15,7 @@ public class TreeMove : MonoBehaviour
 
     void Move()
     {
-        if (CompareTag("Tree"))
+        if (CompareTag("Tree")||CompareTag("Mountain"))
         {
             transform.position += Vector3.back * speed * Time.deltaTime;
         }
