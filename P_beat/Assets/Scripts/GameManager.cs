@@ -43,10 +43,6 @@ public class GameManager : MonoBehaviour
         {
             score += 80;
         }
-        else if(a == "Good")
-        {
-            score += 40;
-        }
         else
         {
             score += 0;

@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using Newtonsoft.Json;
 /*
 text파일에 string 데이터 쓰고 읽기
 1. 파일을 저장할때는 쉼표단위로 저장하였다.
@@ -14,10 +15,18 @@ text파일에 string 데이터 쓰고 읽기
 - values 배열에 쉼표로 구분된 데이터가 저장된다.
 */
 
+public struct Data
+{
+    public int index;
+    public float time;
+}
+
+
 
 public class Parser : MonoBehaviour
 {
-    //불꽃 프리팹 연결
+    public List<Data> data = new List<Data>();
+
     public GameObject[] node;
     string m_strPath = "Assets/Resources/";
 
@@ -28,17 +37,12 @@ public class Parser : MonoBehaviour
     int shotCnt = 0;
 
 
-
     public GameObject[] nodeEndPos;
 
     void Start()
     {
-
-
         Parse();
     }
-    // Use this for initialization
-
     
 
 
@@ -53,38 +57,42 @@ public class Parser : MonoBehaviour
         */
 
 
+
+
+        //DATA 스트럭트 불러옴
+        Data d;
+
         //제이슨 파서
-        string json = File.ReadAllText(Application.dataPath + "/Resources/test.json");
-        //List<T> node = new List<T>();
-
-/*        myData = JsonConvert.DeserializeObject<List<Mydata>>(json);
-
-        while (source != null)
+        //경로의 파일 불러옴
+        string json = File.ReadAllText(Application.dataPath + "/Resource/Data.json");
+        //제이슨파일 직렬화 해제
+        data = JsonConvert.DeserializeObject<List<Data>>(json);
+        //반복문을 돌면서 해당 데이터 계속 읽어옴
+        for (int i = 0; i < data.Count; i++)
         {
-            values = source.Split(',');  // 쉼표로 구분한다. 저장시에 쉼표로 구분하여 저장하였다.
-            if (values.Length == 0)
-            {
-                sr.Close();
-                return;
-            }
-            source = sr.ReadLine();    // 한줄 읽는다.
-            listFireObjIdx.Add(Convert.ToInt32(values[0]));
-            listFireShotTime.Add((float)(Convert.ToDouble(values[1])- MusicManager.instance.tempTime));
-
+            //제이슨파일에 인덱스 호출
+            listFireObjIdx.Add(Convert.ToInt32(data[i].index));
+            //제이슨파일에 타임 호출
+            listFireShotTime.Add((float)(Convert.ToDouble(data[i].time) - MusicManager.instance.tempTime));
         }
-*/
+
+
+        /*
+                while (source != null)
+                {
+                    values = source.Split(',');  // 쉼표로 구분한다. 저장시에 쉼표로 구분하여 저장하였다.
+                    if (values.Length == 0)
+                    {
+                        sr.Close();
+                        return;
+                    }
+                    source = sr.ReadLine();    // 한줄 읽는다.
+                    listFireObjIdx.Add(Convert.ToInt32(values[0]));
+                    listFireShotTime.Add((float)(Convert.ToDouble(values[1])- MusicManager.instance.tempTime));
+
+                }
+        */
     }
-
-/*    public void DoRead()
-    {
-        string json = File.ReadAllText(Application.dataPath + "/Resources/test.json");
-        myData = JsonConvert.DeserializeObject<List<Mydata>>(json);
-        for (int i = 0; i < myData.Count; i++)
-        {
-            print("나이" + myData[i].age + "이름" + myData[i].name);
-        }
-    }*/
-
 
     public GameObject[] nodePos;
 

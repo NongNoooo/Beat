@@ -49,23 +49,31 @@ public class NodeCrash : MonoBehaviour
 
                 gt.TextPopUp(gt.gt);
             }
-            else if(currTime > 1.0f && currTime <= 1.5f)
-            { // 1초 초과 1.5초 이하일땐 굿
-                Debug.Log("Good");
-                gm.CountScore("Good");
-                gm.ComboPlus();
-
-                gt.TextPopUp(gt.gd);
-            }
             else if(currTime > 1.5f)
-            { //1.5초 초과시 실패
+            {
                 Debug.Log("fail");
                 gm.CountScore("fail");
                 gm.ComboBreak();
 
                 gt.TextPopUp(gt.fail);
             }
+            /*            else if(currTime > 1.0f && currTime <= 1.5f)
+                        { // 1초 초과 1.5초 이하일땐 굿
+                            Debug.Log("Good");
+                            gm.CountScore("Good");
+                            gm.ComboPlus();
 
+                            gt.TextPopUp(gt.gd);
+                        }
+            *//*            else if(currTime > 1.5f)
+                        { //1.5초 초과시 실패
+                            Debug.Log("fail");
+                            gm.CountScore("fail");
+                            gm.ComboBreak();
+
+                            gt.TextPopUp(gt.fail);
+                        }
+            */
             Destroy(other.gameObject);
         }
     }
