@@ -64,7 +64,7 @@ public class Parser : MonoBehaviour
 
         //제이슨 파서
         //경로의 파일 불러옴
-        string json = File.ReadAllText(Application.dataPath + "/Resource/Data.json");
+        string json = File.ReadAllText(Application.dataPath + "/Resources/Data.json");
         //제이슨파일 직렬화 해제
         data = JsonConvert.DeserializeObject<List<Data>>(json);
         //반복문을 돌면서 해당 데이터 계속 읽어옴
@@ -119,15 +119,57 @@ public class Parser : MonoBehaviour
 
 
                     nodeObj.transform.position = rndNodePos.transform.position;
-                   
+
+                    sunSizeDown = true;
+
+                    SunMove();
 
                   //print("오브젝트인덱스:" + listFireObjIdx[shotCnt] + " 경과시간: " + listFireShotTime[shotCnt]);
                   
                     shotCnt++;
+
 
                 }
             }
         }
     }
 
+
+    public GameObject sun;
+
+
+    bool sunSizeDown = false;
+
+    void SunMove()
+    {
+        StartCoroutine(SunSacle());
+    }
+
+
+    IEnumerator SunSacle()
+    {
+        if (sunSizeDown)
+        {
+            Vector3 orPos = new Vector3(1, 1, 1);
+
+            float sunSizeUpCount = 1;
+
+            while(sunSizeUpCount < 1.05f)
+            {
+                sunSizeUpCount += 0.01f;
+                yield return new WaitForSeconds(0.01f);
+                sun.transform.localScale = new Vector3(sunSizeUpCount, sunSizeUpCount, 1);
+            }
+            while (sunSizeUpCount > 0.95)
+            {
+                sunSizeUpCount -= 0.01f;
+                yield return new WaitForSeconds(0.01f);
+                sun.transform.localScale = new Vector3(sunSizeUpCount, sunSizeUpCount, 1);
+            }
+
+            sun.transform.localScale = orPos;
+            sunSizeUpCount = 1;
+            sunSizeDown = false;
+        }
+    }
 }

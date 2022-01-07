@@ -16,6 +16,8 @@ public class Spectrum : MonoBehaviour
 
     public int rotValue;
 
+    public int rotValueY;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,7 @@ public class Spectrum : MonoBehaviour
             cube.GetComponent<MeshRenderer>().material = myMaterial;
             cube.transform.parent = gameObject.transform;
             //cube.transform.localPosition = new Vector3(0.1f * i, (1.6f - i), 0);
-            cube.transform.localEulerAngles = new Vector3(0, 0, (-i * 2) + rotValue);
+            cube.transform.localEulerAngles = new Vector3(0, rotValueY, (-i * 2) + rotValue);
             //cube.transform.position = cube.transform.parent.position + new Vector3(0.1f * i, (1.6f - i), 0);
             //cube.transform.localPosition = new Vector3((0.1f * i), 1.6f, 0);
             cube.transform.localPosition = cube.transform.up*1.6f;
