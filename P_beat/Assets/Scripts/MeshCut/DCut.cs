@@ -4,7 +4,7 @@ using System.Collections;
 public class DCut : MonoBehaviour {
 
 	public Material capMaterial;
-	public GameObject Slash;
+	//public GameObject Slash;
 
 	public float maxDistance;
 	// Use this for initialization
@@ -15,29 +15,39 @@ public class DCut : MonoBehaviour {
 	
 	void Update(){
 
-
 			RaycastHit hit;
         if (Input.GetKeyDown(KeyCode.D))
         {
 
 			if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
 			{
+                GameObject victim = hit.collider.gameObject;
 
-				GameObject victim = hit.collider.gameObject;
+                /*                GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
 
-				GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
+                                if (!pieces[1].GetComponent<Rigidbody>())
+                                    pieces[1].AddComponent<Rigidbody>();
 
-				if (!pieces[1].GetComponent<Rigidbody>())
-					pieces[1].AddComponent<Rigidbody>();
+                                Destroy(pieces[1], 1);
+                */
+                if (victim.CompareTag("test"))
+                {
 
-				Destroy(pieces[1], 1);
-				GameObject S = Instantiate(Slash);
-				S.transform.position = transform.position;
-				S.transform.rotation = transform.rotation;
-			}
-}
+                    GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
 
-	}
+                    if (!pieces[1].GetComponent<Rigidbody>())
+                        pieces[1].AddComponent<Rigidbody>();
+
+                    Destroy(pieces[1], 1);
+                    //GameObject S = Instantiate(Slash);
+                    //S.transform.position = transform.position;
+                    //S.transform.rotation = transform.rotation;
+
+                }
+            }
+        }
+
+    }
 
 	void OnDrawGizmosSelected() {
 

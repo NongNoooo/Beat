@@ -15,25 +15,35 @@ public class NodeCrash : MonoBehaviour
     public GameObject nodePerfectTextPos;
 
 
+    public Material capMaterial;
+    //public GameObject Slash;
+
+    public float maxDistance;
+
+
+
+
     void Start()
     {
         gmobj = GameObject.FindGameObjectWithTag("GameManager");
         gm = gmobj.GetComponent<GameManager>();
 
         gt = nodePerfectTextPos.GetComponent<GradeText>();
+
     }
 
     void Update()
     {
         TimeCount();
         DeActive();
+        MeshCut();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Node"))
         {
-            if(currTime <= 0.5f)
+            if (currTime <= 0.5f)
             { //키입력후 0.5초 미만일때 노드를 클리어하면 엑셀런트
                 Debug.Log("Excellent");
                 gm.CountScore("Excellent");
@@ -49,7 +59,7 @@ public class NodeCrash : MonoBehaviour
 
                 gt.TextPopUp(gt.gt);
             }
-            else if(currTime > 1.5f)
+            else if (currTime > 1.5f)
             {
                 Debug.Log("fail");
                 gm.CountScore("fail");
@@ -85,11 +95,32 @@ public class NodeCrash : MonoBehaviour
 
     void DeActive()
     {
-        if(currTime >= endTime)
+        if (currTime >= endTime)
         {
             this.gameObject.SetActive(false);
             currTime = 0.0f;
         }
     }
 
+
+    void MeshCut()
+    {
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
+        {
+            GameObject victim = hit.collider.gameObject;
+
+            if (victim.CompareTag("Node"))
+            {
+                GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
+
+                if (!pieces[1].GetComponent<Rigidbody>())
+                    pieces[1].AddComponent<Rigidbody>();
+
+                Destroy(pieces[1], 1);
+            }
+        }
+    }
 }

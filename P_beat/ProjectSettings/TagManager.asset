@@ -17,6 +17,7 @@ TagManager:
   - Green
   - Blue
   - Mountain
+  - test
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - EndBar
   - Node
   - 
-  - 
+  - test
   - 
   - 
   - 
