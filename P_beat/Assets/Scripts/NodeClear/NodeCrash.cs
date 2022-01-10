@@ -36,13 +36,13 @@ public class NodeCrash : MonoBehaviour
     {
         TimeCount();
         DeActive();
-        MeshCut();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Node"))
         {
+            //Debug.Log(currTime);
             if (currTime <= 0.5f)
             { //키입력후 0.5초 미만일때 노드를 클리어하면 엑셀런트
                 Debug.Log("Excellent");
@@ -84,7 +84,7 @@ public class NodeCrash : MonoBehaviour
                             gt.TextPopUp(gt.fail);
                         }
             */
-            Destroy(other.gameObject);
+            other.gameObject.tag = "Done";
         }
     }
 
@@ -102,25 +102,8 @@ public class NodeCrash : MonoBehaviour
         }
     }
 
-
-    void MeshCut()
+    public void GetkeyUp()
     {
-        RaycastHit hit;
-
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
-        {
-            GameObject victim = hit.collider.gameObject;
-
-            if (victim.CompareTag("Node"))
-            {
-                GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
-
-                if (!pieces[1].GetComponent<Rigidbody>())
-                    pieces[1].AddComponent<Rigidbody>();
-
-                Destroy(pieces[1], 1);
-            }
-        }
+        currTime = 0;
     }
 }

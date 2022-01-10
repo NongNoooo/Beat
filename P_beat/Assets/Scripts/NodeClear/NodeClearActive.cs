@@ -21,7 +21,6 @@ public class NodeClearActive : MonoBehaviour
     public GameObject j_Dummy;
     public GameObject k_Dummy;
 
-
     Renderer dr;
     Renderer fr;
     Renderer gr;
@@ -48,6 +47,29 @@ public class NodeClearActive : MonoBehaviour
     public GameObject KmeshCut;
 
 
+
+
+    public GameObject d_saber;
+    public GameObject f_saber;
+    public GameObject g_saber;
+    public GameObject h_saber;
+    public GameObject j_saber;
+    public GameObject k_saber;
+
+    Material dsm;
+    Material fsm;
+    Material gsm;
+    public Material hsm;
+    Material jsm;
+    Material ksm;
+
+    Renderer dsr;
+    Renderer fsr;
+    Renderer gsr;
+    public Renderer hsr;
+    Renderer jsr;
+    Renderer ksr;
+
     void Start()
     {
         d_key = transform.GetChild(0).gameObject;
@@ -72,8 +94,18 @@ public class NodeClearActive : MonoBehaviour
         jm = jr.material;
         km = kr.material;
 
+        hsr = h_saber.GetComponent<Renderer>();
+        hsm = hsr.material;
+
+        //getMaterial(hsr, h_saber, hsm);
     }
 
+    void getMaterial(Renderer r, GameObject g, Material m)
+    {
+        r = g.GetComponent<Renderer>();
+        m = r.material;
+    }
+    
 
     void Update()
     {
@@ -137,6 +169,7 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(dm,"Green");
 
             DmeshCut.SetActive(true);
+            //ColorChange(dsm, "Green");
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
@@ -146,6 +179,9 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(dm, "Black");
 
             DmeshCut.SetActive(false);
+
+            NodeCrash nc = d_key.GetComponent<NodeCrash>();
+            nc.GetkeyUp();
         }
     }
 
@@ -166,6 +202,9 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(fm, "Black");
 
             FmeshCut.SetActive(false);
+
+            NodeCrash nc = f_key.GetComponent<NodeCrash>();
+            nc.GetkeyUp();
         }
     }
 
@@ -186,6 +225,9 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(gm, "Black");
 
             GmeshCut.SetActive(false);
+
+            NodeCrash nc = g_key.GetComponent<NodeCrash>();
+            nc.GetkeyUp();
         }
 
     }
@@ -198,7 +240,9 @@ public class NodeClearActive : MonoBehaviour
 
             ColorChange(hm, "White");
 
-            GmeshCut.SetActive(true);
+            HmeshCut.SetActive(true);
+
+            ColorChange(hsm, "White");  
         }
         else if (Input.GetKeyUp(KeyCode.H))
         {
@@ -206,7 +250,12 @@ public class NodeClearActive : MonoBehaviour
 
             ColorChange(hm, "Black");
 
-            GmeshCut.SetActive(false);
+            HmeshCut.SetActive(false);
+
+            NodeCrash nc = h_key.GetComponent<NodeCrash>();
+            nc.GetkeyUp();
+
+            ColorChange(hsm, "Black");
         }
 
     }
@@ -228,6 +277,9 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(jm, "Black");
 
             JmeshCut.SetActive(false);
+
+            NodeCrash nc = j_key.GetComponent<NodeCrash>();
+            nc.GetkeyUp();
         }
 
     }
@@ -249,6 +301,9 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(km, "Black");
 
             KmeshCut.SetActive(false);
+
+            NodeCrash nc = k_key.GetComponent<NodeCrash>();
+            nc.GetkeyUp();
         }
 
     }

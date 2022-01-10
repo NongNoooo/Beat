@@ -75,6 +75,7 @@ public class NoteTool : MonoBehaviour
 
         //배열 noteData에 위의 값을 추가
         noteData.Add(nd);
+        Debug.Log("node");
     }
 
     public void DoWrite() // 2. JSON string 만들기
@@ -83,7 +84,7 @@ public class NoteTool : MonoBehaviour
         string json = JsonConvert.SerializeObject(noteData.ToArray());   // Json파일로 밀어넣기
 
         //경로에 파일 생성
-        File.WriteAllText(Application.dataPath + "/Resources/Data.json", json);  // 파일로 만들기
+        File.WriteAllText(Application.dataPath + "/Resources/Blinding_Light_Data.json", json);  // 파일로 만들기
         print(json); // 테스트
     }
 

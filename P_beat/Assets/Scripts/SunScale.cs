@@ -30,11 +30,6 @@ public class SunScale : MonoBehaviour
         Parse();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void Parse()
     {

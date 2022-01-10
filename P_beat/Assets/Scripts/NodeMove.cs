@@ -10,6 +10,8 @@ public class NodeMove : MonoBehaviour
 
     GameManager gm;
 
+    float currTime = 0;
+    
     void Start()
     {
         GameObject gmobj = GameObject.FindGameObjectWithTag("GameManager");
@@ -17,9 +19,11 @@ public class NodeMove : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
+
+        currTime += Time.deltaTime;
     }
 
     void Move()
@@ -27,13 +31,27 @@ public class NodeMove : MonoBehaviour
         transform.position += -transform.forward * speed * Time.deltaTime;
     }
 
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("NodeEnd"))
         {
-            Debug.Log("³ëµå »ç¶óÁü");
-            gm.ComboBreak();
-            Destroy(gameObject);
+            if (!gameObject.CompareTag("Done"))
+            {
+                Debug.Log("³ëµå »ç¶óÁü");
+                //Debug.Log(currTime);
+
+
+                gm.ComboBreak();
+
+/*                GradeText gt = other.GetComponent<GradeText>();
+                gt.TextPopUp(gt.fail);
+*/
+
+                Destroy(gameObject);
+            }
         }
     }
 }

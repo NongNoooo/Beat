@@ -11,8 +11,12 @@ public class GameManager : MonoBehaviour
     public GameObject scoreText;
     public GameObject comboText;
 
+    public GameObject soundManager;
+
     TextShow ts;
     TextShow _ts;
+
+    public float musicStartTime = 1.0f;
 
     private void Start()
     {
@@ -20,8 +24,18 @@ public class GameManager : MonoBehaviour
         _ts = comboText.GetComponent<TextShow>();
     }
 
+    public void Update()
+    {
+        Invoke("MusicStart", musicStartTime);
+    }
 
-    public void ComboPlus()
+    void MusicStart()
+    {
+        soundManager.SetActive(true);
+    }
+
+
+public void ComboPlus()
     {
         combo += 1;
         _ts.ComboText();
