@@ -20,6 +20,10 @@ TagManager:
   - test
   - Done
   - LightSaber
+  - JukeBox
+  - Galaxy
+  - Planet
+  - Button
   layers:
   - Default
   - TransparentFX

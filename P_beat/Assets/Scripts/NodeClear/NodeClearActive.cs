@@ -59,16 +59,19 @@ public class NodeClearActive : MonoBehaviour
     Material dsm;
     Material fsm;
     Material gsm;
-    public Material hsm;
+    Material hsm;
     Material jsm;
     Material ksm;
 
     Renderer dsr;
     Renderer fsr;
     Renderer gsr;
-    public Renderer hsr;
+    Renderer hsr;
     Renderer jsr;
     Renderer ksr;
+
+
+    Animator d_anim;
 
     void Start()
     {
@@ -94,10 +97,28 @@ public class NodeClearActive : MonoBehaviour
         jm = jr.material;
         km = kr.material;
 
+        dsr = d_saber.GetComponent<Renderer>();
+        dsm = dsr.material;
+
+        fsr = f_saber.GetComponent<Renderer>();
+        fsm = fsr.material;
+
+        gsr = g_saber.GetComponent<Renderer>();
+        gsm = gsr.material;
+
         hsr = h_saber.GetComponent<Renderer>();
         hsm = hsr.material;
 
+        jsr = j_saber.GetComponent<Renderer>();
+        jsm = jsr.material;
+
+        ksr = k_saber.GetComponent<Renderer>();
+        ksm = ksr.material;
+
         //getMaterial(hsr, h_saber, hsm);
+
+
+        d_anim = d_Dummy.GetComponent<Animator>();
     }
 
     void getMaterial(Renderer r, GameObject g, Material m)
@@ -167,9 +188,11 @@ public class NodeClearActive : MonoBehaviour
             d_key.SetActive(true);
 
             ColorChange(dm,"Green");
+            ColorChange(dsm, "Green");
 
             DmeshCut.SetActive(true);
-            //ColorChange(dsm, "Green");
+
+            d_anim.SetTrigger("Slash");
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
@@ -177,6 +200,7 @@ public class NodeClearActive : MonoBehaviour
 
 
             ColorChange(dm, "Black");
+            ColorChange(dsm, "Black");
 
             DmeshCut.SetActive(false);
 
@@ -192,6 +216,7 @@ public class NodeClearActive : MonoBehaviour
             f_key.SetActive(true);
 
             ColorChange(fm, "Yellow");
+            ColorChange(fsm, "Yellow");
 
             FmeshCut.SetActive(true);
         }
@@ -200,6 +225,7 @@ public class NodeClearActive : MonoBehaviour
             f_key.SetActive(false);
 
             ColorChange(fm, "Black");
+            ColorChange(fsm, "Black");
 
             FmeshCut.SetActive(false);
 
@@ -215,6 +241,7 @@ public class NodeClearActive : MonoBehaviour
             g_key.SetActive(true);
 
             ColorChange(gm, "Cyan");
+            ColorChange(gsm, "Cyan");
 
             GmeshCut.SetActive(true);
         }
@@ -223,6 +250,7 @@ public class NodeClearActive : MonoBehaviour
             g_key.SetActive(false);
 
             ColorChange(gm, "Black");
+            ColorChange(gsm, "Black");
 
             GmeshCut.SetActive(false);
 
@@ -239,23 +267,21 @@ public class NodeClearActive : MonoBehaviour
             h_key.SetActive(true);
 
             ColorChange(hm, "White");
+            ColorChange(hsm, "White");
 
             HmeshCut.SetActive(true);
-
-            ColorChange(hsm, "White");  
         }
         else if (Input.GetKeyUp(KeyCode.H))
         {
             h_key.SetActive(false);
 
             ColorChange(hm, "Black");
+            ColorChange(hsm, "Black");
 
             HmeshCut.SetActive(false);
 
             NodeCrash nc = h_key.GetComponent<NodeCrash>();
             nc.GetkeyUp();
-
-            ColorChange(hsm, "Black");
         }
 
     }
@@ -267,6 +293,7 @@ public class NodeClearActive : MonoBehaviour
             j_key.SetActive(true);
 
             ColorChange(jm, "Red");
+            ColorChange(jsm, "Red");
 
             JmeshCut.SetActive(true);
         }
@@ -275,6 +302,7 @@ public class NodeClearActive : MonoBehaviour
             j_key.SetActive(false);
 
             ColorChange(jm, "Black");
+            ColorChange(jsm, "Black");
 
             JmeshCut.SetActive(false);
 
@@ -291,6 +319,7 @@ public class NodeClearActive : MonoBehaviour
             k_key.SetActive(true);
 
             ColorChange(km, "Blue");
+            ColorChange(ksm, "Blue");
 
             KmeshCut.SetActive(true);
         }
@@ -299,6 +328,7 @@ public class NodeClearActive : MonoBehaviour
             k_key.SetActive(false);
 
             ColorChange(km, "Black");
+            ColorChange(ksm, "Black");
 
             KmeshCut.SetActive(false);
 

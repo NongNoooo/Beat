@@ -35,7 +35,7 @@ public class SunScale : MonoBehaviour
     {
         //제이슨 파서
         //경로의 파일 불러옴
-        string json = File.ReadAllText(Application.dataPath + "/Resources/Data.json");
+        string json = File.ReadAllText(Application.dataPath + "/Resources/Blinding_Light_Data.json");
         //제이슨파일 직렬화 해제
         nd = JsonConvert.DeserializeObject<List<nData>>(json);
         //반복문을 돌면서 해당 데이터 계속 읽어옴
