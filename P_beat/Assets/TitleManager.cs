@@ -18,11 +18,23 @@ public class TitleManager : MonoBehaviour
 
     public bool nowMove = false;
 
+
+    public float jukeBoxRotFix = 300.0f;
+
+    public float menuObjEnlarge = 128.0f;
+
+    public float objStopMove = 80.0f;
+
     Vector3 dir;
+
+    LpPlayer lp;
+
+    public bool jukeBoxMoveEnd = false;
 
     void Start()
     {
-        bo = startButton.GetComponent<ButtonOn>();   
+        bo = startButton.GetComponent<ButtonOn>();
+        lp = jukeBox.GetComponent<LpPlayer>();
     }
 
     void Update()
@@ -32,7 +44,6 @@ public class TitleManager : MonoBehaviour
         if (bo.click)
         {
             Move();
-            nowMove = true;
         }
     }
 
@@ -44,9 +55,20 @@ public class TitleManager : MonoBehaviour
             {
                 moveFrontobj[i].transform.position += dir.normalized * moveSpeed * 10 * Time.deltaTime;
 
-                if(Vector3.Distance(cam.transform.position, jukeBox.transform.position) <= 20.0f)
+                if(Vector3.Distance(cam.transform.position, jukeBox.transform.position) <= jukeBoxRotFix)
                 {
-                    bo.click = false;
+                    nowMove = true;
+
+                    if(Vector3.Distance(cam.transform.position, jukeBox.transform.position) <= menuObjEnlarge)
+                    {
+                        lp.closeEnough = true;
+                    }
+
+                    if (Vector3.Distance(cam.transform.position, jukeBox.transform.position) <= objStopMove)
+                    {
+                        bo.click = false;
+                        jukeBoxMoveEnd = true;
+                    }
                 }
             }
             else if (moveFrontobj[i].CompareTag("Galaxy"))

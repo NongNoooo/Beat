@@ -13,6 +13,9 @@ public class GalxyMove : MonoBehaviour
 
     TitleManager tm;
 
+
+    Vector3 closeScale = new Vector3(2, 2, 5);
+
     void Start()
     {
         tm = manager.GetComponent<TitleManager>();
@@ -23,13 +26,20 @@ public class GalxyMove : MonoBehaviour
     {
         if (tm.nowMove == false)
         {
-            transform.Rotate(new Vector3(0, -rotSpeed * Time.deltaTime, 0));
+            if (CompareTag("JukeBox"))
+            {
+                transform.Rotate(new Vector3(0, 0, rotSpeed * Time.deltaTime));
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, -rotSpeed * Time.deltaTime, 0));
+            }
         }
         if (tm.nowMove)
         {
             if(CompareTag("JukeBox"))
             //쿼터니언을 이용한 회전 보간
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(-100, -180, 0)), 1.0f*Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(-100, 180, 0)), 3.0f*Time.deltaTime);
             //                                                          위처럼 임의로 원하는 방향값을 주고싶을
             //                                                          경우 쿼터니언 앞에 붙여야됨
 

@@ -24,6 +24,9 @@ TagManager:
   - Galaxy
   - Planet
   - Button
+  - LP1
+  - LP2
+  - LP3
   layers:
   - Default
   - TransparentFX
