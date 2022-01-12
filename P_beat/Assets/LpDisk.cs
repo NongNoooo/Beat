@@ -26,12 +26,16 @@ public class LpDisk : MonoBehaviour
     public bool leftPos = false;
     public bool rightPos = false;
 
+    public GameObject portalControl;
+
+    Knife.Portal.PortalControlByKey pc;
+
     void Start()
     {
 
         lp = jukeBox.GetComponent<LpPlayer>();
         tm = titleManager.GetComponent<TitleManager>();
-
+        pc = portalControl.GetComponent<Knife.Portal.PortalControlByKey>();
     }
 
 
@@ -45,7 +49,12 @@ public class LpDisk : MonoBehaviour
     }
 
 
-    bool move = false;
+    public bool move = false;
+    public bool turning = false;
+
+    public GameObject portal;
+    public GameObject portalPos;
+
     void LpMove()
     {
         if (Input.GetKeyUp(KeyCode.Space))
@@ -61,6 +70,23 @@ public class LpDisk : MonoBehaviour
             transform.position = Vector3.Slerp(transform.position, diskInPos.transform.position, 0.1f);
             transform.rotation = Quaternion.Lerp(transform.rotation, diskInPos.transform.rotation, 0.1f);
         }
+
+        if (Vector3.Distance(transform.position, diskInPos.transform.position) <= 0.1f)
+        {
+            turning = true;
+        }
+
+        if(turning == true)
+        {
+            portal.transform.position = portalPos.transform.position;
+
+            Open();
+        }
+    }
+
+    void Open()
+    {
+        pc.open = true;
     }
 
     void LpMusic(/*string a*/)

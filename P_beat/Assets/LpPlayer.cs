@@ -94,6 +94,8 @@ public class LpPlayer : MonoBehaviour
             if (a.CompareTag("LP1"))
             {
                 a.transform.position = mainLpPos.transform.position;
+                ld.mainPos = true;
+
             }
             else if (a.CompareTag("LP2"))
             {
@@ -105,7 +107,6 @@ public class LpPlayer : MonoBehaviour
             }
         }
 
-        ld.mainPos = true;
     }
 
 /*    void LpChange()
