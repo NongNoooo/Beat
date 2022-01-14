@@ -29,6 +29,7 @@ public class Parser : MonoBehaviour
 
     public GameObject[] node;
     string m_strPath = "Assets/Resources/";
+    string json;
 
     List<int> listFireObjIdx = new List<int>();
     List<float> listFireShotTime = new List<float>();
@@ -39,9 +40,15 @@ public class Parser : MonoBehaviour
 
     public GameObject[] nodeEndPos;
 
+    public GameObject music;
+
     void Start()
     {
+        music = GameObject.FindGameObjectWithTag("Music");
+
         Parse();
+
+        
     }
     
 
@@ -64,7 +71,12 @@ public class Parser : MonoBehaviour
 
         //제이슨 파서
         //경로의 파일 불러옴
-        string json = File.ReadAllText(Application.dataPath + "/Resources/Blinding_Light_Data.json");
+
+        if (music.name.Contains("Blinding_Light_Music"))
+        {
+            json = File.ReadAllText(Application.dataPath + "/Resources/Blinding_Light_Data.json");
+        }
+
         //제이슨파일 직렬화 해제
         data = JsonConvert.DeserializeObject<List<Data>>(json);
         //반복문을 돌면서 해당 데이터 계속 읽어옴
@@ -96,29 +108,59 @@ public class Parser : MonoBehaviour
 
     public GameObject[] nodePos;
 
+    int idx;
+
     private void FixedUpdate()
     {
-        if(listFireObjIdx.Count > 0  && listFireShotTime.Count > 0)
+
+        if (listFireObjIdx.Count > 0  && listFireShotTime.Count > 0)
         {
             if (listFireObjIdx.Count > shotCnt)
             {
+                Debug.Log(listFireObjIdx.Count);
                 currentTime += Time.fixedDeltaTime;
                 if (currentTime > listFireShotTime[shotCnt])
                 {
-                    int idx = listFireObjIdx[shotCnt];
+                    Debug.Log(shotCnt);
+                    int a = shotCnt + 1;
+                    if (listFireObjIdx.Count == a)
+                    {
+                        idx = listFireObjIdx[shotCnt];
 
-                    int rndnum = Random.Range(0, nodePos.Length);
+                        int rndnum = Random.Range(0, nodePos.Length);
 
-                    GameObject rndNodePos = nodePos[rndnum];
+                        GameObject rndNodePos = nodePos[rndnum];
 
-                    GameObject nodeObj = Instantiate(node[idx]);
+                        Debug.Log("last");
+                        GameObject nodeObj = Instantiate(node[idx]);
+                        //Test ts = nodeObj.AddComponent<Test>();
 
-                    NodeMove nm = nodeObj.GetComponent<NodeMove>();
+                        SphereCollider sc = nodeObj.AddComponent<SphereCollider>();
 
-                    nm._dir = nodeEndPos[rndnum].transform.position - nodeObj.transform.position;
+                        NodeMove nm = nodeObj.GetComponent<NodeMove>();
+
+                        nm._dir = nodeEndPos[rndnum].transform.position - nodeObj.transform.position;
 
 
-                    nodeObj.transform.position = rndNodePos.transform.position;
+                        nodeObj.transform.position = rndNodePos.transform.position;
+                    }
+                    else
+                    {
+                        idx = listFireObjIdx[shotCnt];
+
+                        int rndnum = Random.Range(0, nodePos.Length);
+
+                        GameObject rndNodePos = nodePos[rndnum];
+
+                        GameObject nodeObj = Instantiate(node[idx]);
+
+                        NodeMove nm = nodeObj.GetComponent<NodeMove>();
+
+                        nm._dir = nodeEndPos[rndnum].transform.position - nodeObj.transform.position;
+
+
+                        nodeObj.transform.position = rndNodePos.transform.position;
+                    }
 
                     sunSizeDown = true;
 
@@ -127,13 +169,19 @@ public class Parser : MonoBehaviour
                   //print("오브젝트인덱스:" + listFireObjIdx[shotCnt] + " 경과시간: " + listFireShotTime[shotCnt]);
                   
                     shotCnt++;
-
-
                 }
             }
+           /* if(listFireObjIdx.Count <= shotCnt)
+            {
+                Debug.Log("게임끝");
+            }*/
         }
     }
 
+    void TenS()
+    {
+
+    }
 
     public GameObject sun;
 

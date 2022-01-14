@@ -30,12 +30,23 @@ public class LpDisk : MonoBehaviour
 
     Knife.Portal.PortalControlByKey pc;
 
+    public GameObject cam;
+
+    CamMove cm;
+
+
+    //LP1 = blindlight
+    public GameObject musicObj;
+
+
 
     void Start()
     {
         lp = jukeBox.GetComponent<LpPlayer>();
         tm = titleManager.GetComponent<TitleManager>();
         pc = portalControl.GetComponent<Knife.Portal.PortalControlByKey>();
+        cm = cam.GetComponent<CamMove>();
+        
     }
 
 
@@ -65,6 +76,9 @@ public class LpDisk : MonoBehaviour
             if (mainPos)
             {
                 move = true;
+
+                GameObject m = Instantiate(musicObj);
+                DontDestroyOnLoad(m);
             }
         }
 
@@ -72,13 +86,12 @@ public class LpDisk : MonoBehaviour
         {
             transform.position = Vector3.Slerp(transform.position, diskInPos.transform.position, 0.1f);
             transform.rotation = Quaternion.Lerp(transform.rotation, diskInPos.transform.rotation, 0.1f);
-        }
 
-        if (Vector3.Distance(transform.position, diskInPos.transform.position) <= 0.1f)
-        {
-            turning = true;
+            if (Vector3.Distance(transform.position, diskInPos.transform.position) <= 0.1f)
+            {
+                turning = true;
+            }
         }
-
     }
 
     void PortalOpen()
@@ -89,7 +102,9 @@ public class LpDisk : MonoBehaviour
 
             Open();
 
-            Invoke("CamMove", 2.0f);
+            cm._camMove = true;
+            cm.CamMoveInvoke();
+            turning = false;
         }
     }
 
@@ -100,12 +115,6 @@ public class LpDisk : MonoBehaviour
     }
 
 
-    public GameObject cam;
-    void CamMove()
-    {
-        cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(new Vector3(12, 1, 6)), 0.1f);
-        cam.transform.position += Vector3.forward * 2 * Time.deltaTime;
-    }
 
     void LpMusic(/*string a*/)
     {
@@ -148,11 +157,20 @@ public class LpDisk : MonoBehaviour
         }
 
         //아래 메서드 실행
+        //DiskMove();
+        if (moveToRight)
+        {
+            test();
+        }
+    }
+
+    void DiskMove()
+    {
         DiskMove(ref leftPos, ref mainPos, mainP);
         DiskMove(ref mainPos, ref rightPos, rightP);
         DiskMove(ref rightPos, ref leftPos, leftP);
-    }
 
+    }
 
     //           현제위치 불값, 버튼입력시 이동할 위치 불값, 이동할 위치 오브젝트
     void DiskMove(ref bool firstPos, ref bool nextPos, GameObject nextPosObj)
@@ -171,6 +189,46 @@ public class LpDisk : MonoBehaviour
                     firstPos = false;
                     nextPos = true;
                 }
+            }
+        }
+    }
+
+    void test()
+    {
+        if (mainPos == true && rightPos == false && leftPos == false)
+        {
+            transform.position = Vector3.Slerp(transform.position, rightP.transform.position, 0.1f);
+
+            if (Vector3.Distance(transform.position, rightP.transform.position) < 0.1f)
+            {
+                moveToRight = false;
+                mainPos = false;
+                leftPos = false;
+                rightPos = true;
+            }
+        }
+        else if (rightPos == true && mainPos == false && leftPos == false)
+        {
+            transform.position = Vector3.Slerp(transform.position, leftP.transform.position, 0.1f);
+
+            if (Vector3.Distance(transform.position, leftP.transform.position) < 0.1f)
+            {
+                moveToRight = false;
+                mainPos = false;
+                rightPos = false;
+                leftPos = true;
+            }
+        }
+        else if(leftPos == true && mainPos == false && rightPos == false)
+        {
+            transform.position = Vector3.Slerp(transform.position, mainP.transform.position, 0.1f);
+
+            if (Vector3.Distance(transform.position, mainP.transform.position) < 0.1f)
+            {
+                moveToRight = false;
+                leftPos = false;
+                rightPos = false;
+                mainPos = true;
             }
         }
     }

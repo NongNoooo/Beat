@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject scoreText;
     public GameObject comboText;
 
-    public GameObject soundManager;
+    public GameObject music;
 
     TextShow ts;
     TextShow _ts;
@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     {
         ts = scoreText.GetComponent<TextShow>();
         _ts = comboText.GetComponent<TextShow>();
+
+        music = GameObject.FindGameObjectWithTag("Music").transform.GetChild(0).gameObject;
     }
 
     public void Update()
@@ -31,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     void MusicStart()
     {
-        soundManager.SetActive(true);
+        music.SetActive(true);
     }
 
 

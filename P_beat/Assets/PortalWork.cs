@@ -24,4 +24,7 @@ public class PortalWork : MonoBehaviour
             SceneManager.LoadScene("GamMain");
         }
     }
+
+
+
 }

@@ -27,6 +27,8 @@ TagManager:
   - LP1
   - LP2
   - LP3
+  - Portal
+  - Music
   layers:
   - Default
   - TransparentFX

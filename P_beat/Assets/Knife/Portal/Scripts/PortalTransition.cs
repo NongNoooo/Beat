@@ -37,7 +37,10 @@ namespace Knife.Portal
         {
             var transient = other.GetComponent<IPortalTransient>();
             if (transient != null)
+            {
                 transients.Add(new PortalTransient(other.transform, transient));
+            }
+
         }
 
         public void OpenPortal()

@@ -20,7 +20,7 @@ namespace Knife.Portal
         {
             if (cullCamera == null)
             {
-                Debug.LogWarning("cullCamera is null, so MainCamera (with tag MainCamera) will be used as cullCamera");
+                //Debug.LogWarning("cullCamera is null, so MainCamera (with tag MainCamera) will be used as cullCamera");
                 cullCamera = Camera.main;
             }
 
