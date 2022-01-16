@@ -29,6 +29,11 @@ TagManager:
   - LP3
   - Portal
   - Music
+  - MenuManager
+  - NodeTextPos
+  - ComboEnd
+  - EndMenu
+  - LastNode
   layers:
   - Default
   - TransparentFX
@@ -74,4 +79,7 @@ TagManager:
     locked: 0
   - name: Sun
     uniqueID: 1187738431
+    locked: 0
+  - name: UI
+    uniqueID: 1671982869
     locked: 0

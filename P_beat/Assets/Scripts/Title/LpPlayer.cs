@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.SceneManagement;
 
 public class LpPlayer : MonoBehaviour
 {
@@ -54,17 +53,17 @@ public class LpPlayer : MonoBehaviour
     {
         if (closeEnough)
         {
-            if (x <= 2)
+            if (x <= 3)
             {
-                x += 6f * Time.deltaTime;
+                x += 7f * Time.deltaTime;
             }
-            if(y <= 2)
+            if(y <= 3)
             {
-                y += 6f * Time.deltaTime;
+                y += 7f * Time.deltaTime;
             }
             if(z <= 5)
             {
-                z += 20f*Time.deltaTime;
+                z += 22f*Time.deltaTime;
             }
             Dome.transform.localScale = new Vector3(x,y,z);
         }
@@ -85,44 +84,28 @@ public class LpPlayer : MonoBehaviour
 
     void LpPos(GameObject a)
     {
-        ld = a.GetComponent<LpDisk>();
-
-        /* if (ld.mainPos == false)
-         {
-             if (a.CompareTag("LP1"))
-             {
-                 a.transform.position = mainLpPos.transform.position;
-                 ld.mainPos = true;
-
-             }
-             else if (a.CompareTag("LP2"))
-             {
-                 a.transform.position = LeftLpPos.transform.position;
-                 ld.leftPos = true;
-             }
-             else if (a.CompareTag("LP3"))
-             {
-                 a.transform.position = RightLpPos.transform.position;
-                 ld.rightPos = true;
-             }
-         }*/
-        if (a.CompareTag("LP1"))
+        //메뉴씬이 아닐때만 첫위치로 이동하도록
+        if(SceneManager.GetActiveScene().name != "Menu")
         {
-            a.transform.position = mainLpPos.transform.position;
-            ld.mainPos = true;
+            ld = a.GetComponent<LpDisk>();
 
-        }
-        else if (a.CompareTag("LP2"))
-        {
-            a.transform.position = LeftLpPos.transform.position;
-            ld.leftPos = true;
-        }
-        else if (a.CompareTag("LP3"))
-        {
-            a.transform.position = RightLpPos.transform.position;
-            ld.rightPos = true;
-        }
+            if (a.CompareTag("LP1"))
+            {
+                a.transform.position = mainLpPos.transform.position;
+                ld.mainPos = true;
 
+            }
+            else if (a.CompareTag("LP2"))
+            {
+                a.transform.position = LeftLpPos.transform.position;
+                ld.leftPos = true;
+            }
+            else if (a.CompareTag("LP3"))
+            {
+                a.transform.position = RightLpPos.transform.position;
+                ld.rightPos = true;
+            }
+        }
     }
 
     /*    void LpChange()

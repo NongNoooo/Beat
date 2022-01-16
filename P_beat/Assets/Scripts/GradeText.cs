@@ -11,8 +11,14 @@ public class GradeText : MonoBehaviour
 
     public void TextPopUp(GameObject a)
     {
-        Debug.Log("work");
+        if (transform.childCount != 0)
+        {
+            GameObject n = transform.GetChild(0).gameObject;
+            Destroy(n);
+        }
+
         GameObject tx = Instantiate(a, transform.position, transform.rotation);
+        tx.transform.parent = transform;
         Destroy(tx, 2.0f);
     }
 }

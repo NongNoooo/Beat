@@ -13,7 +13,7 @@ namespace Knife.Portal
 
         private void OnValidate()
         {
-            if (targets != null)
+            /*if (targets != null)
             {
                 if (Application.isPlaying)
                 {
@@ -36,12 +36,12 @@ namespace Knife.Portal
                         {
                             foreach (var m in target.sharedMaterials)
                             {
-                                m.SetFloat(hueParamName, value);
+                                //m.SetFloat(hueParamName, value);
                             }
                         }
                     }
                 }
-            }
+            }*/
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class LpDisk : MonoBehaviour
 {
@@ -39,6 +39,7 @@ public class LpDisk : MonoBehaviour
     public GameObject musicObj;
 
 
+    public GameObject[] lps;
 
     void Start()
     {
@@ -46,7 +47,12 @@ public class LpDisk : MonoBehaviour
         tm = titleManager.GetComponent<TitleManager>();
         pc = portalControl.GetComponent<Knife.Portal.PortalControlByKey>();
         cm = cam.GetComponent<CamMove>();
-        
+
+
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            mm = menuManager.GetComponent<MenuManager>();
+        }
     }
 
 
@@ -59,6 +65,66 @@ public class LpDisk : MonoBehaviour
         LpChage();
 
         PortalOpen();
+
+
+        MenuScene();
+
+    }
+
+    public GameObject menuManager;
+    MenuManager mm;
+
+    bool sceneLoad = false;
+
+    void MenuScene()
+    {
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            if (mainPos)
+            {
+                if (mm.sceneLoaded)
+                {
+                    sceneLoad = true;
+
+                    transform.position = diskInPos.transform.position;
+                    transform.rotation = diskInPos.transform.rotation;
+
+                    Open();
+                }
+                else
+                {
+                    if (pc.open == false)
+                    {
+                        if (diskReturn)
+                        {
+                            Invoke("afteroneScencd", 0.5f);
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    public bool diskReturn = true;
+
+    void afteroneScencd()
+    {
+        transform.position = Vector3.Slerp(transform.position, mainP.transform.position, 2*Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, mainP.transform.rotation, 2*Time.deltaTime);
+
+        if(Vector3.Distance(transform.position,mainP.transform.position) <= 0.1f)
+        {
+            transform.rotation = mainP.transform.rotation;
+
+            for(int i = 0; i < lps.Length; i++)
+            {
+                LpDisk ld = lps[i].GetComponent<LpDisk>();
+
+                ld.diskReturn = false;
+                sceneLoad = false;
+            }
+        }
     }
 
 
@@ -69,19 +135,25 @@ public class LpDisk : MonoBehaviour
     public GameObject portalPos;
 
 
+    bool LpdiskAlreadyIn = false;
     void LpMove()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        //스페이스바를 계속 눌러 musicObj를 중복 생성하지못하게 만듬
+        if(LpdiskAlreadyIn == false)
         {
-            if (mainPos)
+            if (Input.GetKeyUp(KeyCode.Space))
             {
-                move = true;
+                LpdiskAlreadyIn = true;
 
-                GameObject m = Instantiate(musicObj);
-                DontDestroyOnLoad(m);
+                if (mainPos)
+                {
+                    move = true;
+
+                    Instantiate(musicObj);
+                    //LpdiskAlreadyIn = false;
+                }
             }
         }
-
         if (move)
         {
             transform.position = Vector3.Slerp(transform.position, diskInPos.transform.position, 0.1f);
@@ -114,21 +186,11 @@ public class LpDisk : MonoBehaviour
         pc.open = true;
     }
 
+    
 
 
-    void LpMusic(/*string a*/)
+    void LpMusic()
     {
-        /*        if (a == "LP1")
-                {
-                    if (tm.jukeBoxMoveEnd)
-                    {
-                        GameObject n = Instantiate(nameObj);
-                        n.transform.parent = musicNamePos.transform;
-                        n.transform.position = musicNamePos.transform.position;
-                        n.transform.rotation = musicNamePos.transform.rotation;
-                    }
-                    tm.jukeBoxMoveEnd = false;
-                }*/
         if (tm.jukeBoxMoveEnd)
         {
             if(musicNamePos.transform.childCount == 0)
@@ -140,27 +202,48 @@ public class LpDisk : MonoBehaviour
                 n.transform.rotation = musicNamePos.transform.rotation;
             }
         }
-        //tm.jukeBoxMoveEnd = false;
     }
 
 
 
     //키입력시 디스크 움직이는거 확인
     public bool moveToRight = false;
+    public bool moveToLeft = false;
 
     void LpChage()
     {
-        //키가 입력된후 디스크가 계속 돌아가게 하기위해 불값을 변경
-        if (Input.GetKeyUp(KeyCode.D))
+        //디스크가 옆으로 이동중에 코드가 중복실행되서 순서가 엉키는걸 막기위해 moveToRight이 false일때만 키를 입력할수 있게 만듬
+        if(moveToRight == false && moveToRight == false)
         {
-            moveToRight = true;
+            if(turning == false || sceneLoad == false)
+            {
+                if (Input.GetKeyUp(KeyCode.D))
+                {
+                    moveToRight = true;
+                }
+            }
+        }
+        if(moveToLeft == false && moveToRight == false)
+        {
+            if(turning == false || sceneLoad == false)
+            {
+                if (Input.GetKeyUp(KeyCode.S))
+                {
+                    moveToLeft = true;
+                }
+            }
         }
 
         //아래 메서드 실행
         //DiskMove();
         if (moveToRight)
         {
-            test();
+            MoveRight();
+            //DiskMove();
+        }
+        if (moveToLeft)
+        {
+            MoveLeft();
         }
     }
 
@@ -193,7 +276,7 @@ public class LpDisk : MonoBehaviour
         }
     }
 
-    void test()
+    void MoveRight()
     {
         if (mainPos == true && rightPos == false && leftPos == false)
         {
@@ -232,4 +315,46 @@ public class LpDisk : MonoBehaviour
             }
         }
     }
+
+    void MoveLeft()
+    {
+        if (mainPos == true && rightPos == false && leftPos == false)
+        {
+            transform.position = Vector3.Slerp(transform.position, leftP.transform.position, 0.1f);
+
+            if (Vector3.Distance(transform.position, leftP.transform.position) < 0.1f)
+            {
+                moveToLeft = false;
+                mainPos = false;
+                leftPos = true;
+                rightPos = false;
+            }
+        }
+        else if (rightPos == true && mainPos == false && leftPos == false)
+        {
+            transform.position = Vector3.Slerp(transform.position, mainP.transform.position, 0.1f);
+
+            if (Vector3.Distance(transform.position, mainP.transform.position) < 0.1f)
+            {
+                moveToLeft = false;
+                mainPos = true;
+                rightPos = false;
+                leftPos = false;
+            }
+        }
+        else if (leftPos == true && mainPos == false && rightPos == false)
+        {
+            transform.position = Vector3.Slerp(transform.position, rightP.transform.position, 0.1f);
+
+            if (Vector3.Distance(transform.position, rightP.transform.position) < 0.1f)
+            {
+                moveToLeft = false;
+                leftPos = false;
+                rightPos = true;
+                mainPos = false;
+            }
+        }
+    }
+
 }
+

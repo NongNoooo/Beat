@@ -37,6 +37,14 @@ namespace Knife.Portal
                     p.OpenPortal();
                 }
             }
+            else if(open == false)
+            {
+                foreach (var p in portalTransitions)
+                {
+                    p.ClosePortal();
+                }
+
+            }
         }
     }
 }

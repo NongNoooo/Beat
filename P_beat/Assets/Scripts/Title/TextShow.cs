@@ -19,9 +19,13 @@ public class TextShow : MonoBehaviour
             ScoreText();
 
         }
-        else
+        else if(gameObject.CompareTag("Combo"))
         {
            ComboText();
+        }
+        else
+        {
+            ComboEnd();
         }
     }
 
@@ -33,5 +37,10 @@ public class TextShow : MonoBehaviour
     public void ComboText()
     {
         txt.text = gm.combo + " : Combo";
+    }
+
+    public void ComboEnd()
+    {
+        txt.text = "Combo : " + gm.combo;
     }
 }

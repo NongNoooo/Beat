@@ -74,8 +74,17 @@ public class Parser : MonoBehaviour
 
         if (music.name.Contains("Blinding_Light_Music"))
         {
-            json = File.ReadAllText(Application.dataPath + "/Resources/Blinding_Light_Data.json");
+            json = File.ReadAllText(Application.dataPath + "/Resources/blinding_lights.json");  
         }
+        if (music.name.Contains("Everything_Black"))
+        {
+            json = File.ReadAllText(Application.dataPath + "/Resources/Everything_Black.json");
+        }
+        if (music.name.Contains("I_Feel_It_Coming"))
+        {
+            json = File.ReadAllText(Application.dataPath + "/Resources/I_Feel_It_Coming.json");
+        }
+
 
         //제이슨파일 직렬화 해제
         data = JsonConvert.DeserializeObject<List<Data>>(json);
@@ -135,7 +144,7 @@ public class Parser : MonoBehaviour
                         GameObject nodeObj = Instantiate(node[idx]);
                         //Test ts = nodeObj.AddComponent<Test>();
 
-                        SphereCollider sc = nodeObj.AddComponent<SphereCollider>();
+                        LastNode ln = nodeObj.AddComponent<LastNode>();
 
                         NodeMove nm = nodeObj.GetComponent<NodeMove>();
 

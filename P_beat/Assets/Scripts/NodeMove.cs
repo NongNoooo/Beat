@@ -11,11 +11,16 @@ public class NodeMove : MonoBehaviour
     GameManager gm;
 
     float currTime = 0;
-    
+
+    public GameObject fail;
+
+    public GameObject ntp;
+
     void Start()
     {
         GameObject gmobj = GameObject.FindGameObjectWithTag("GameManager");
         gm = gmobj.GetComponent<GameManager>();
+        ntp = GameObject.FindGameObjectWithTag("NodeTextPos");
     }
 
 
@@ -36,22 +41,34 @@ public class NodeMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("NodeEnd"))
+        if(transform.tag == "Node")
         {
-            if (!gameObject.CompareTag("Done"))
+            if (other.CompareTag("NodeEnd"))
             {
-                Debug.Log("³ëµå »ç¶óÁü");
-                //Debug.Log(currTime);
+                if (!gameObject.CompareTag("Done"))
+                {
+                    Debug.Log("³ëµå »ç¶óÁü");
+                    //Debug.Log(currTime);
+
+                    if (ntp.transform.childCount != 0)
+                    {
+                        GameObject _n = ntp.transform.GetChild(0).gameObject;
+                        Destroy(_n);
+                    }
+
+                    GameObject n = Instantiate(fail, ntp.transform.position, ntp.transform.rotation);
+                    n.transform.parent = ntp.transform;
+                    gm.ComboBreak();
 
 
-                gm.ComboBreak();
+                    /*                GradeText gt = other.GetComponent<GradeText>();
+                                    gt.TextPopUp(gt.fail);
+                    */
 
-/*                GradeText gt = other.GetComponent<GradeText>();
-                gt.TextPopUp(gt.fail);
-*/
-
-                Destroy(gameObject);
+                    Destroy(gameObject);
+                }
             }
+
         }
     }
 }

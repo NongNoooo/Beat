@@ -18,17 +18,23 @@ public class GameManager : MonoBehaviour
 
     public float musicStartTime = 1.0f;
 
+    public GameObject menu;
+
+    AudioSource _as;
+
     private void Start()
     {
         ts = scoreText.GetComponent<TextShow>();
         _ts = comboText.GetComponent<TextShow>();
 
         music = GameObject.FindGameObjectWithTag("Music").transform.GetChild(0).gameObject;
+        _as = music.GetComponent<AudioSource>();
     }
 
     public void Update()
     {
         Invoke("MusicStart", musicStartTime);
+        EscMenu();
     }
 
     void MusicStart()
@@ -65,5 +71,27 @@ public void ComboPlus()
         }
 
         ts.ScoreText();
+    }
+
+    public bool esc = false;
+
+    public void EscMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            esc = !esc;
+            menu.SetActive(!menu.activeSelf);
+
+            if (esc == false)
+            {
+                Time.timeScale = 1f;
+                _as.Play();
+            }
+            else if (esc == true)
+            {
+                Time.timeScale = 0f;
+                _as.Pause();
+            }
+        }
     }
 }
