@@ -52,8 +52,11 @@ public class NodeMove : MonoBehaviour
 
                     if (ntp.transform.childCount != 0)
                     {
-                        GameObject _n = ntp.transform.GetChild(0).gameObject;
-                        Destroy(_n);
+                        for(int i = 0; i < ntp.transform.childCount; i++)
+                        {
+                            GameObject _n = ntp.transform.GetChild(0).gameObject;
+                            Destroy(_n);
+                        }
                     }
 
                     GameObject n = Instantiate(fail, ntp.transform.position, ntp.transform.rotation);

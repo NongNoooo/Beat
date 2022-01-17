@@ -53,6 +53,11 @@ public class LpDisk : MonoBehaviour
         {
             mm = menuManager.GetComponent<MenuManager>();
         }
+
+        if(SceneManager.GetActiveScene().name == "Title")
+        {
+            diskReturn = false;
+        }
     }
 
 
@@ -84,6 +89,8 @@ public class LpDisk : MonoBehaviour
             {
                 if (mm.sceneLoaded)
                 {
+                    LpdiskAlreadyIn = true; // 수정
+
                     sceneLoad = true;
 
                     transform.position = diskInPos.transform.position;
@@ -116,8 +123,9 @@ public class LpDisk : MonoBehaviour
         if(Vector3.Distance(transform.position,mainP.transform.position) <= 0.1f)
         {
             transform.rotation = mainP.transform.rotation;
+            LpdiskAlreadyIn = false; // 수정
 
-            for(int i = 0; i < lps.Length; i++)
+            for (int i = 0; i < lps.Length; i++)
             {
                 LpDisk ld = lps[i].GetComponent<LpDisk>();
 
@@ -135,22 +143,24 @@ public class LpDisk : MonoBehaviour
     public GameObject portalPos;
 
 
-    bool LpdiskAlreadyIn = false;
+    public bool LpdiskAlreadyIn = false;
     void LpMove()
     {
         //스페이스바를 계속 눌러 musicObj를 중복 생성하지못하게 만듬
-        if(LpdiskAlreadyIn == false)
+        if(diskReturn == false)
         {
-            if (Input.GetKeyUp(KeyCode.Space))
+            if(LpdiskAlreadyIn == false)
             {
-                LpdiskAlreadyIn = true;
-
-                if (mainPos)
+                if (Input.GetKeyUp(KeyCode.Space))
                 {
-                    move = true;
+                    LpdiskAlreadyIn = true;
+                    if (mainPos)
+                    {
+                        move = true;
 
-                    Instantiate(musicObj);
-                    //LpdiskAlreadyIn = false;
+                        Instantiate(musicObj);
+                        //LpdiskAlreadyIn = false;
+                    }
                 }
             }
         }
@@ -213,23 +223,29 @@ public class LpDisk : MonoBehaviour
     void LpChage()
     {
         //디스크가 옆으로 이동중에 코드가 중복실행되서 순서가 엉키는걸 막기위해 moveToRight이 false일때만 키를 입력할수 있게 만듬
-        if(moveToRight == false && moveToRight == false)
+        if (diskReturn == false)
         {
-            if(turning == false || sceneLoad == false)
+            if(LpdiskAlreadyIn == false)
             {
-                if (Input.GetKeyUp(KeyCode.D))
+                if(moveToRight == false && moveToLeft == false)
                 {
-                    moveToRight = true;
+                    if(turning == false || sceneLoad == false)
+                    {
+                        if (Input.GetKeyUp(KeyCode.D))
+                        {
+                            moveToRight = true;
+                        }
+                    }
                 }
-            }
-        }
-        if(moveToLeft == false && moveToRight == false)
-        {
-            if(turning == false || sceneLoad == false)
-            {
-                if (Input.GetKeyUp(KeyCode.S))
+                if(moveToLeft == false && moveToRight == false)
                 {
-                    moveToLeft = true;
+                    if(turning == false || sceneLoad == false)
+                    {
+                        if (Input.GetKeyUp(KeyCode.S))
+                        {
+                            moveToLeft = true;
+                        }
+                    }
                 }
             }
         }

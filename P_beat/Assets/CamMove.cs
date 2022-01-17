@@ -61,7 +61,7 @@ public class CamMove : MonoBehaviour
         else
         {
             //메뉴씬
-            if(_camMove == false)
+            if(_camMove == false && moveFront == false)
             {
                 //메뉴씬이 처음 로딩됬을땐 camMove가 false라 cammove를 사용해서 작동시킴
                 //포탈에서 빠져나오는 연출을 위해
@@ -93,7 +93,7 @@ public class CamMove : MonoBehaviour
                 }
 
             }
-            if(_camMove == true)
+            if(moveFront == true/*_camMove == true*/)
             {
                 dir = portalPos.transform.position - transform.position;
 
@@ -134,7 +134,7 @@ public class CamMove : MonoBehaviour
 
 
 
-    bool moveFront = false;
+    public bool moveFront = false;
 
     void moveTime()
     {
@@ -146,7 +146,7 @@ public class CamMove : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name == "Title")
         {
-            if (_camMove == true)
+            if (_camMove == true && moveFront == false)
             {
                 //캠이 뒤로 움직임
 
@@ -168,7 +168,7 @@ public class CamMove : MonoBehaviour
 
             transform.position = Vector3.Slerp(transform.position, oriPos.transform.position, Time.deltaTime);
 
-            if(mag <= 0.5f)
+            if(mag <= 0.5f && moveFront == false)
             {
                 transform.position = oriPos.transform.position;
                 transform.rotation = oriPos.transform.rotation;
@@ -176,19 +176,23 @@ public class CamMove : MonoBehaviour
         }
         else
         {
+            //메뉴 씬에서 작동
+
             if(_camMove == false)
             {
                 transform.position += dir.normalized * 100 * Time.deltaTime;
-
             }
 
-            if(mag <= 0.1f)
+            if(mag <= 0.5f && moveFront == false)
             {
+                //포탈에서 빠져나와 카메라가 뒤로 이동할때 위에서 구한 거리가 충족되고 moveFornt가 false일때 카메라 위치 고정
                 transform.position = oriPos.transform.position;
             }
 
-            if (_camMove)
+            if (_camMove && moveFront == false)
             {
+                //스페이스바를 눌러 lp디스크를 lp플레이어로 위치시킨후 포탈이 열린뒤
+                //캠이 뒤로 이동하며 회전
                 Invoke("moveTime", 1.0f);
                 //cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(new Vector3(12, 1, 6)), 0.1f);
                 transform.localPosition += Vector3.back * 5 * Time.deltaTime;
@@ -197,6 +201,7 @@ public class CamMove : MonoBehaviour
             }
             if (moveFront)
             {
+                //인보크를 통해 실행시킨 moveTime에서 활성화된 moveFront를 이용해서 카메라를 포탈쪽으로 이동
                 transform.position += dir.normalized * 100 * Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), 2 * Time.deltaTime);
             }

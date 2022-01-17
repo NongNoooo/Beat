@@ -48,6 +48,7 @@ public class NodeCrash : MonoBehaviour
                 Debug.Log("Excellent");
                 gm.CountScore("Excellent");
                 gm.ComboPlus();
+                gm.MaxComboCount();
 
                 gt.TextPopUp(gt.ex);
             }
@@ -56,6 +57,7 @@ public class NodeCrash : MonoBehaviour
                 Debug.Log("Great");
                 gm.CountScore("Great");
                 gm.ComboPlus();
+                gm.MaxComboCount();
 
                 gt.TextPopUp(gt.gt);
             }

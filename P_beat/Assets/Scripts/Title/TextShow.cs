@@ -41,6 +41,6 @@ public class TextShow : MonoBehaviour
 
     public void ComboEnd()
     {
-        txt.text = "Combo : " + gm.combo;
+        txt.text = "Max Combo : " + gm.combo;
     }
 }

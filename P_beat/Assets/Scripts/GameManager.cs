@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public int score;
     public int combo;
+    public int maxCombo;
 
 
     public GameObject scoreText;
@@ -29,10 +30,14 @@ public class GameManager : MonoBehaviour
 
         music = GameObject.FindGameObjectWithTag("Music").transform.GetChild(0).gameObject;
         _as = music.GetComponent<AudioSource>();
+
+        esc = false;
+        Time.timeScale = 1f;
     }
 
     public void Update()
     {
+        //Debug.Log(Time.timeScale);
         Invoke("MusicStart", musicStartTime);
         EscMenu();
     }
@@ -53,6 +58,14 @@ public void ComboPlus()
     {
         combo = 0;
         _ts.ComboText();
+    }
+
+    public void MaxComboCount()
+    {
+        if (maxCombo < combo)
+        {
+            maxCombo = combo;
+        }
     }
 
     public void CountScore(string a)
