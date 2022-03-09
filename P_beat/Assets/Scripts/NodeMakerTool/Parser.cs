@@ -15,16 +15,16 @@ text파일에 string 데이터 쓰고 읽기
 - values 배열에 쉼표로 구분된 데이터가 저장된다.
 */
 
+//제이슨 파일을 파싱해서 파일내 변수를 받아올 구조체
 public struct Data
 {
     public int index;
     public float time;
 }
 
-
-
 public class Parser : MonoBehaviour
 {
+    //위의 구조체를 인스턴스
     public List<Data> data = new List<Data>();
 
     public GameObject[] node;
@@ -46,32 +46,13 @@ public class Parser : MonoBehaviour
     {
         music = GameObject.FindGameObjectWithTag("Music");
 
-        Parse();
-
-        
+        Parse();       
     }
     
-
-
     public void Parse()
     {
-        /*        TextAsset data = Resources.Load("Data", typeof(TextAsset)) as TextAsset;
-                StringReader sr = new StringReader(data.text);
-                // 먼저 한줄을 읽는다. 
-                string source = sr.ReadLine();
-                string[] values;                // 쉼표로 구분된 데이터들을 저장할 배열 (values[0]이면 첫번째 데이터 )
-                 텍스트 파일 파서
-        */
-
-
-
-
-        //DATA 스트럭트 불러옴
-        Data d;
-
         //제이슨 파서
-        //경로의 파일 불러옴
-
+        //경로의 파일을 불러와 모든 텍스트를 문자열로 읽은 후 파일을 닫음
         if (music.name.Contains("Blinding_Light_Music"))
         {
             json = File.ReadAllText(Application.dataPath + "/Resources/blinding_lights.json");  
@@ -96,23 +77,6 @@ public class Parser : MonoBehaviour
             //제이슨파일에 타임 호출
             listFireShotTime.Add((float)(Convert.ToDouble(data[i].time) - MusicManager.instance.tempTime));
         }
-
-
-        /*
-                while (source != null)
-                {
-                    values = source.Split(',');  // 쉼표로 구분한다. 저장시에 쉼표로 구분하여 저장하였다.
-                    if (values.Length == 0)
-                    {
-                        sr.Close();
-                        return;
-                    }
-                    source = sr.ReadLine();    // 한줄 읽는다.
-                    listFireObjIdx.Add(Convert.ToInt32(values[0]));
-                    listFireShotTime.Add((float)(Convert.ToDouble(values[1])- MusicManager.instance.tempTime));
-
-                }
-        */
     }
 
     public GameObject[] nodePos;
@@ -142,7 +106,6 @@ public class Parser : MonoBehaviour
 
                         Debug.Log("last");
                         GameObject nodeObj = Instantiate(node[idx]);
-                        //Test ts = nodeObj.AddComponent<Test>();
 
                         LastNode ln = nodeObj.AddComponent<LastNode>();
 
@@ -175,21 +138,10 @@ public class Parser : MonoBehaviour
 
                     SunMove();
 
-                  //print("오브젝트인덱스:" + listFireObjIdx[shotCnt] + " 경과시간: " + listFireShotTime[shotCnt]);
-                  
                     shotCnt++;
                 }
             }
-           /* if(listFireObjIdx.Count <= shotCnt)
-            {
-                Debug.Log("게임끝");
-            }*/
         }
-    }
-
-    void TenS()
-    {
-
     }
 
     public GameObject sun;
@@ -201,7 +153,6 @@ public class Parser : MonoBehaviour
     {
         StartCoroutine(SunSacle());
     }
-
 
     IEnumerator SunSacle()
     {

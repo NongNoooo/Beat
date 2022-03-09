@@ -41,17 +41,14 @@ public class CamMove : MonoBehaviour
         }   
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //타이틀 화면에서 포탈과 카메라 방향 구하기
         if(SceneManager.GetActiveScene().name == "Title")
         {
             dir = portalPos.transform.position - transform.position;
         }
         else if(SceneManager.GetActiveScene().name == "GamMain")
         {
-            //게임화면에서 카메라 이동하는 방향 및 거리구하기
             dir = oriPos.transform.position - transform.position;
             mag = (transform.position - oriPos.transform.position).magnitude;
 
@@ -60,33 +57,23 @@ public class CamMove : MonoBehaviour
         }
         else
         {
-            //메뉴씬
             if(_camMove == false && moveFront == false)
             {
-                //메뉴씬이 처음 로딩됬을땐 camMove가 false라 cammove를 사용해서 작동시킴
-                //포탈에서 빠져나오는 연출을 위해
-                //원래 위치에서 카메라 위치를 빼서 방향 구함
                 dir = oriPos.transform.position - transform.position;
                 mag = (transform.position - oriPos.transform.position).magnitude;
 
-                //원래 위치로 이동
                 Move();
 
-                //메뉴씬이 켜짐을 뜻하는 bool
                 if (mm.sceneLoaded)
                 {
                     if(mag <= 0.1f)
                     {
-                        //위에서 구한 거리가 만족될때
-                        //로딩 완료bool값 true로 변경
                         mm.sceneLoaded = false;
-                        //pc.open = false;
                         sceneLoadComple = true;
                     }
                 }
                 if(sceneLoadComple == true)
                 {
-                    //
                     pc.open = false;
                     sceneLoadComple = false;
                     mm.bc.enabled = true;
@@ -108,8 +95,6 @@ public class CamMove : MonoBehaviour
     {
         if (other.CompareTag("Portal"))
         {
-            Debug.Log(other.name);
-            Debug.Log("캠 멈춤");
             for (int i = 0; i < lpd.Length; i++)
             {
                 lp = lpd[i].GetComponent<LpDisk>();
@@ -148,11 +133,8 @@ public class CamMove : MonoBehaviour
         {
             if (_camMove == true && moveFront == false)
             {
-                //캠이 뒤로 움직임
-
-                //1초후에 뒤로 움직이는거 멈추고 앞으로 ㄱ
+                Debug.Log("Wokr");
                 Invoke("moveTime", 1.0f);
-                //cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(new Vector3(12, 1, 6)), 0.1f);
                 transform.localPosition += Vector3.back * 5 * Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,0,-10), 2*Time.deltaTime);
             }
@@ -176,8 +158,6 @@ public class CamMove : MonoBehaviour
         }
         else
         {
-            //메뉴 씬에서 작동
-
             if(_camMove == false)
             {
                 transform.position += dir.normalized * 100 * Time.deltaTime;
@@ -185,27 +165,21 @@ public class CamMove : MonoBehaviour
 
             if(mag <= 0.5f && moveFront == false)
             {
-                //포탈에서 빠져나와 카메라가 뒤로 이동할때 위에서 구한 거리가 충족되고 moveFornt가 false일때 카메라 위치 고정
                 transform.position = oriPos.transform.position;
             }
 
             if (_camMove && moveFront == false)
             {
-                //스페이스바를 눌러 lp디스크를 lp플레이어로 위치시킨후 포탈이 열린뒤
-                //캠이 뒤로 이동하며 회전
                 Invoke("moveTime", 1.0f);
-                //cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(new Vector3(12, 1, 6)), 0.1f);
                 transform.localPosition += Vector3.back * 5 * Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -10), 2 * Time.deltaTime);
 
             }
             if (moveFront)
             {
-                //인보크를 통해 실행시킨 moveTime에서 활성화된 moveFront를 이용해서 카메라를 포탈쪽으로 이동
                 transform.position += dir.normalized * 100 * Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), 2 * Time.deltaTime);
             }
-
         }
     }
 }

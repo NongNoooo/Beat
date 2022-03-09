@@ -12,13 +12,6 @@ public class ButtonOn : MonoBehaviour
 
     public GameObject manager;
 
-    //TitleManager tm;
-
-/*    private void Start()
-    {
-        tm = manager.GetComponent<TitleManager>();
-    }
-*/
     public void TextOn()
     {
         buttonText.SetActive(true);

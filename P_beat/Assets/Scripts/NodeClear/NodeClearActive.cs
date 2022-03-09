@@ -72,6 +72,22 @@ public class NodeClearActive : MonoBehaviour
 
 
     Animator d_anim;
+    Animator f_anim;
+    Animator g_anim;
+    Animator h_anim;
+    Animator j_anim;
+    Animator k_anim;
+
+    //public GameObject[] keys;
+    //public GameObject[] dummys;
+    //Renderer[] dummyRenders;
+    //Material[] materials;
+    //Animator[] anims;
+
+    //public GameObject[] lightSabers;
+    //Renderer[] lightSaberRenders;
+    //Material[] lightSaberMaterials;
+
 
     void Start()
     {
@@ -81,7 +97,6 @@ public class NodeClearActive : MonoBehaviour
         h_key = transform.GetChild(3).gameObject;
         j_key = transform.GetChild(4).gameObject;
         k_key = transform.GetChild(5).gameObject;
-
 
         dr = d_Dummy.transform.GetChild(1).GetComponent<Renderer>();
         fr = f_Dummy.transform.GetChild(1).GetComponent<Renderer>();
@@ -115,10 +130,24 @@ public class NodeClearActive : MonoBehaviour
         ksr = k_saber.GetComponent<Renderer>();
         ksm = ksr.material;
 
-        //getMaterial(hsr, h_saber, hsm);
-
-
         d_anim = d_Dummy.GetComponent<Animator>();
+        f_anim = f_Dummy.GetComponent<Animator>();
+        g_anim = g_Dummy.GetComponent<Animator>();
+        h_anim = h_Dummy.GetComponent<Animator>();
+        j_anim = j_Dummy.GetComponent<Animator>();
+        k_anim = k_Dummy.GetComponent<Animator>();
+
+
+        //for(int i = 0; i < 6; i++)
+        //{
+        //    keys[i] = transform.GetChild(i).gameObject;
+        //    dummyRenders[i] = dummys[i].transform.GetChild(1).GetComponent<Renderer>();
+        //    materials[i] = dummyRenders[i].material;
+        //    anims[i] = dummys[i].GetComponent<Animator>();
+
+        //    lightSaberRenders[i] = lightSabers[i].GetComponent<Renderer>();
+        //    lightSaberMaterials[i] = lightSaberRenders[i].material;
+        //}
     }
 
     void getMaterial(Renderer r, GameObject g, Material m)
@@ -146,11 +175,11 @@ public class NodeClearActive : MonoBehaviour
 
     void ColorChange(Material a, string b)
     {
-        if(b == "Black")
+        if (b == "Black")
         {
             a.SetVector("_EmissionColor", Color.black * intensity);
         }
-        if(b == "Green")
+        if (b == "Green")
         {
             a.SetVector("_EmissionColor", Color.green * intensity);
         }
@@ -174,15 +203,10 @@ public class NodeClearActive : MonoBehaviour
         {
             a.SetVector("_EmissionColor", Color.blue * bintensity);
         }
-
-
     }
-
-
 
     void Dkey()
     {
-
         if (Input.GetKeyDown(KeyCode.D))
         {
             d_key.SetActive(true);
@@ -198,14 +222,57 @@ public class NodeClearActive : MonoBehaviour
         {
             d_key.SetActive(false);
 
-
-            ColorChange(dm, "Black");
-            ColorChange(dsm, "Black");
-
             DmeshCut.SetActive(false);
 
             NodeCrash nc = d_key.GetComponent<NodeCrash>();
             nc.GetkeyUp();
+        }
+    }
+
+    public void DummyColor_Black(string name)
+    {
+        if(name == "Light_D")
+        {
+            ColorChange(dm, "Black");
+            ColorChange(dsm, "Black");
+            Debug.Log("D키 검은색으로 변함");
+
+            return;
+        }
+        else if (name == "Light_F")
+        {
+            ColorChange(fm, "Black");
+            ColorChange(fsm, "Black");
+
+            return;
+        }
+        else if (name == "Light_G")
+        {
+            ColorChange(gm, "Black");
+            ColorChange(gsm, "Black");
+
+            return;
+        }
+        else if (name == "Light_H")
+        {
+            ColorChange(hm, "Black");
+            ColorChange(hsm, "Black");
+
+            return;
+        }
+        else if (name == "Light_J")
+        {
+            ColorChange(jm, "Black");
+            ColorChange(jsm, "Black");
+
+            return;
+        }
+        else if (name == "Light_K")
+        {
+            ColorChange(km, "Black");
+            ColorChange(ksm, "Black");
+
+            return;
         }
     }
 
@@ -219,13 +286,12 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(fsm, "Yellow");
 
             FmeshCut.SetActive(true);
+
+            f_anim.SetTrigger("Slash");
         }
         else if (Input.GetKeyUp(KeyCode.F))
         {
             f_key.SetActive(false);
-
-            ColorChange(fm, "Black");
-            ColorChange(fsm, "Black");
 
             FmeshCut.SetActive(false);
 
@@ -244,13 +310,12 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(gsm, "Cyan");
 
             GmeshCut.SetActive(true);
+
+            g_anim.SetTrigger("Slash");
         }
         else if (Input.GetKeyUp(KeyCode.G))
         {
             g_key.SetActive(false);
-
-            ColorChange(gm, "Black");
-            ColorChange(gsm, "Black");
 
             GmeshCut.SetActive(false);
 
@@ -270,13 +335,12 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(hsm, "White");
 
             HmeshCut.SetActive(true);
+
+            h_anim.SetTrigger("Slash");
         }
         else if (Input.GetKeyUp(KeyCode.H))
         {
             h_key.SetActive(false);
-
-            ColorChange(hm, "Black");
-            ColorChange(hsm, "Black");
 
             HmeshCut.SetActive(false);
 
@@ -296,13 +360,12 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(jsm, "Red");
 
             JmeshCut.SetActive(true);
+
+            j_anim.SetTrigger("Slash");
         }
         else if (Input.GetKeyUp(KeyCode.J))
         {
             j_key.SetActive(false);
-
-            ColorChange(jm, "Black");
-            ColorChange(jsm, "Black");
 
             JmeshCut.SetActive(false);
 
@@ -322,13 +385,12 @@ public class NodeClearActive : MonoBehaviour
             ColorChange(ksm, "Blue");
 
             KmeshCut.SetActive(true);
+
+            k_anim.SetTrigger("Slash");
         }
         else if (Input.GetKeyUp(KeyCode.K))
         {
             k_key.SetActive(false);
-
-            ColorChange(km, "Black");
-            ColorChange(ksm, "Black");
 
             KmeshCut.SetActive(false);
 

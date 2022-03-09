@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        //Debug.Log(Time.timeScale);
         Invoke("MusicStart", musicStartTime);
         EscMenu();
     }
@@ -48,7 +47,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-public void ComboPlus()
+    public void ComboPlus()
     {
         combo += 1;
         _ts.ComboText();

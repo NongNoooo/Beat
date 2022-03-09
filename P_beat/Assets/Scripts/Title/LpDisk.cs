@@ -89,7 +89,7 @@ public class LpDisk : MonoBehaviour
             {
                 if (mm.sceneLoaded)
                 {
-                    LpdiskAlreadyIn = true; // 수정
+                    LpdiskAlreadyIn = true; // ????
 
                     sceneLoad = true;
 
@@ -123,7 +123,7 @@ public class LpDisk : MonoBehaviour
         if(Vector3.Distance(transform.position,mainP.transform.position) <= 0.1f)
         {
             transform.rotation = mainP.transform.rotation;
-            LpdiskAlreadyIn = false; // 수정
+            LpdiskAlreadyIn = false; // ????
 
             for (int i = 0; i < lps.Length; i++)
             {
@@ -146,7 +146,6 @@ public class LpDisk : MonoBehaviour
     public bool LpdiskAlreadyIn = false;
     void LpMove()
     {
-        //스페이스바를 계속 눌러 musicObj를 중복 생성하지못하게 만듬
         if(diskReturn == false)
         {
             if(LpdiskAlreadyIn == false)
@@ -159,7 +158,6 @@ public class LpDisk : MonoBehaviour
                         move = true;
 
                         Instantiate(musicObj);
-                        //LpdiskAlreadyIn = false;
                     }
                 }
             }
@@ -192,7 +190,7 @@ public class LpDisk : MonoBehaviour
 
     void Open()
     {
-        //포탈컨트롤 스크립트의 open을 true로 변경
+        //?????????? ?????????? open?? true?? ????
         pc.open = true;
     }
 
@@ -216,19 +214,21 @@ public class LpDisk : MonoBehaviour
 
 
 
-    //키입력시 디스크 움직이는거 확인
+    //???????? ?????? ?????????? ????
     public bool moveToRight = false;
     public bool moveToLeft = false;
 
     void LpChage()
     {
-        //디스크가 옆으로 이동중에 코드가 중복실행되서 순서가 엉키는걸 막기위해 moveToRight이 false일때만 키를 입력할수 있게 만듬
         if (diskReturn == false)
         {
+            //LpdiskAlreadyIn(lp?? ??? ????? ???? ??? ?? true ????? false)
             if(LpdiskAlreadyIn == false)
             {
+                //moveToRight, moveToLeft(lp?? ??? ?? ???? ???? ?? true ???? false)
                 if(moveToRight == false && moveToLeft == false)
                 {
+                    //turning(lp?? ??? ??? lp??????? ???? ??? ?? true ???? false), sceneLoad(??? ?? true ? ??? )
                     if(turning == false || sceneLoad == false)
                     {
                         if (Input.GetKeyUp(KeyCode.D))
@@ -250,12 +250,9 @@ public class LpDisk : MonoBehaviour
             }
         }
 
-        //아래 메서드 실행
-        //DiskMove();
         if (moveToRight)
         {
             MoveRight();
-            //DiskMove();
         }
         if (moveToLeft)
         {
@@ -271,17 +268,16 @@ public class LpDisk : MonoBehaviour
 
     }
 
-    //           현제위치 불값, 버튼입력시 이동할 위치 불값, 이동할 위치 오브젝트
     void DiskMove(ref bool firstPos, ref bool nextPos, GameObject nextPosObj)
     {
-        //키입력시 변경된 불값으로 인해 키입력이 사라져도 디스크가 계속 이동
+        //???????? ?????? ???????? ???? ???????? ???????? ???????? ???? ????
         if (moveToRight)
         {
             if (firstPos == true)
             {
                 transform.position = Vector3.Slerp(transform.position, nextPosObj.transform.position, 0.1f);
 
-                //디스크 이동을 멈추고 위치에 맞는 불값을 활성화
+                //?????? ?????? ?????? ?????? ???? ?????? ??????
                 if (Vector3.Distance(transform.position, nextPosObj.transform.position) < 0.1f)
                 {
                     moveToRight = false;
