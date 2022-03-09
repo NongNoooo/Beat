@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class meshCutTest : MonoBehaviour
 {
-
     public Material capMaterial;
-    //public GameObject Slash;
 
     public float maxDistance;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         MeshCut();   

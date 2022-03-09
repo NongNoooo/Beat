@@ -3,14 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 날짜 : 2021-01-18 PM 4:05:58
-// 작성자 : Rito
 
 public abstract class AfterImageBase : MonoBehaviour
 {
-    /***********************************************************************
-    *                               Public Fields
-    ***********************************************************************/
     public Material _afterImageMaterial;
     public Gradient _afterImageGradient = new Gradient()
     {
@@ -35,37 +30,26 @@ public abstract class AfterImageBase : MonoBehaviour
     [Tooltip("Target Object의 자식 메시들도 포함할지 여부")]
     public bool _containChildrenMeshes = true;
 
-    /***********************************************************************
-    *                               Protected Fields
-    ***********************************************************************/
     protected GameObject _faderContainer;
     protected Color _currentColor;
     protected float _currentElapsedColorUpdateTime;
     protected float _currentElapsedBakeTime;
 
+    //큐를 이용한 풀링
     protected Queue<AfterImageFaderBase> FaderWaitQueue { get; set; }   // 사용 가능한 목록
     protected Queue<AfterImageFaderBase> FaderRunningQueue { get; set; } // 현재 활성화된 잔상 목록
     protected int AvailableCount => FaderWaitQueue.Count;
 
-    /***********************************************************************
-    *                               Public Methods
-    ***********************************************************************/
-    #region .
     /// <summary> 이미지가 재사용할 준비가 됨 </summary>
     public void SetImageReadyState(AfterImageFaderBase image)
     {
+        //큐의 마지막에 이미지를 추가
         FaderWaitQueue.Enqueue(image);
     }
     public void SetImageRunningState(AfterImageFaderBase image)
     {
         FaderRunningQueue.Enqueue(image);
     }
-
-    #endregion
-
-    /***********************************************************************
-    *                               Protected Methods
-    ***********************************************************************/
 
     protected abstract void Init();
     protected abstract void SetupFader(out AfterImageFaderBase fader);
@@ -81,6 +65,7 @@ public abstract class AfterImageBase : MonoBehaviour
         // 1. Get Or Create
         if (AvailableCount > 0)
         {
+            //큐의 첫번째 개체를 제거
             fader = FaderWaitQueue.Dequeue();
         }
         else
@@ -93,10 +78,6 @@ public abstract class AfterImageBase : MonoBehaviour
         SetImageRunningState(fader);
     }
 
-    /***********************************************************************
-    *                               Unity Events
-    ***********************************************************************/
-    #region .
     protected void Start()
     {
         Init();
@@ -107,14 +88,14 @@ public abstract class AfterImageBase : MonoBehaviour
         _currentElapsedBakeTime += Time.deltaTime;
         _currentElapsedColorUpdateTime += Time.deltaTime * _colorUpdateSpeed;
 
-        // 1. Bake
+        //이미지 베이크
         if (_currentElapsedBakeTime >= _bakingCycle)
         {
             BakeImage();
             _currentElapsedBakeTime = 0f;
         }
 
-        // 2. Update Color
+        //색상 변경
         if (_currentElapsedColorUpdateTime > 1.0f)
         {
             _currentElapsedColorUpdateTime = 0f;
@@ -122,6 +103,4 @@ public abstract class AfterImageBase : MonoBehaviour
 
         UpdateColor();
     }
-
-    #endregion
 }

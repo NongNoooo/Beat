@@ -47,9 +47,6 @@ public class NodeMove : MonoBehaviour
             {
                 if (!gameObject.CompareTag("Done"))
                 {
-                    Debug.Log("³ëµå »ç¶óÁü");
-                    //Debug.Log(currTime);
-
                     if (ntp.transform.childCount != 0)
                     {
                         for(int i = 0; i < ntp.transform.childCount; i++)
@@ -62,11 +59,6 @@ public class NodeMove : MonoBehaviour
                     GameObject n = Instantiate(fail, ntp.transform.position, ntp.transform.rotation);
                     n.transform.parent = ntp.transform;
                     gm.ComboBreak();
-
-
-                    /*                GradeText gt = other.GetComponent<GradeText>();
-                                    gt.TextPopUp(gt.fail);
-                    */
 
                     Destroy(gameObject);
                 }

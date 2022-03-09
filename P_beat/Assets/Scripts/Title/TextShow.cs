@@ -23,7 +23,7 @@ public class TextShow : MonoBehaviour
         {
            ComboText();
         }
-        else
+        else if(gameObject.CompareTag("ComboEnd"))
         {
             ComboEnd();
         }
@@ -41,6 +41,6 @@ public class TextShow : MonoBehaviour
 
     public void ComboEnd()
     {
-        txt.text = "Max Combo : " + gm.combo;
+        txt.text = "Max Combo : " + gm.maxCombo;
     }
 }

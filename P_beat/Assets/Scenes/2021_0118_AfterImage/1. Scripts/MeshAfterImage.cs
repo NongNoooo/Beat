@@ -3,23 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 날짜 : 2021-01-18 PM 4:31:08
-// 작성자 : Rito
-
 public sealed class MeshAfterImage : AfterImageBase
 {
-    /***********************************************************************
-    *                               Fields
-    ***********************************************************************/
-    #region .
-
     private MeshFilter[] TargetMeshFilterArray { get; set; }
 
-    #endregion
-    /***********************************************************************
-    *                               Methods
-    ***********************************************************************/
-    #region .
     protected override void Init()
     {
         // 1. Target Meshes
@@ -48,6 +35,4 @@ public sealed class MeshAfterImage : AfterImageBase
         fader = faderGo.AddComponent<MeshAfterImageFader>();
         fader.Setup(TargetMeshFilterArray, _data, this);
     }
-
-    #endregion
 }
