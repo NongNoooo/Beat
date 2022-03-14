@@ -9,18 +9,23 @@ public sealed class MeshAfterImage : AfterImageBase
 
     protected override void Init()
     {
-        // 1. Target Meshes
+        //메쉬필터 가져옴 
         if (_containChildrenMeshes)
+        {
             TargetMeshFilterArray = GetComponentsInChildren<MeshFilter>();
+        }
         else
+        {
             TargetMeshFilterArray = new[] { GetComponent<MeshFilter>() };
+        }
 
-        // 2. Queues
+        //큐 생성
         FaderWaitQueue = new Queue<AfterImageFaderBase>();
         FaderRunningQueue = new Queue<AfterImageFaderBase>();
 
         // 3. Container
         _faderContainer = new GameObject($"{gameObject.name} AfterImage Container");
+        //setpositionandrotation으로 포지션과 로테이션 한번에 수정
         _faderContainer.transform.SetPositionAndRotation(default, default);
         _faderContainer.transform.localScale = transform.localScale;
 

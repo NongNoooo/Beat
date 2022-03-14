@@ -56,13 +56,13 @@ public abstract class AfterImageBase : MonoBehaviour
 
     protected void UpdateColor()
     {
+        //                                           값에 따라 그라디언트에서의 색을 표시
         _currentColor = _afterImageGradient.Evaluate(_currentElapsedColorUpdateTime);
     }
     protected void BakeImage()
     {
         AfterImageFaderBase fader;
 
-        // 1. Get Or Create
         if (AvailableCount > 0)
         {
             //큐의 첫번째 개체를 제거

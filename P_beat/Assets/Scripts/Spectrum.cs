@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Spectrum : MonoBehaviour
 {
-    //public GameObject spectrumObj;
-
     public int spectrumSize = 64;
     int SpectCnt;
 

@@ -146,8 +146,10 @@ public class LpDisk : MonoBehaviour
     public bool LpdiskAlreadyIn = false;
     void LpMove()
     {
+        //lp?? lp?????? mainPos? ??? ?? ????? true
         if(diskReturn == false)
         {
+            //lp?? Lp????? ????? ?? true
             if(LpdiskAlreadyIn == false)
             {
                 if (Input.GetKeyUp(KeyCode.Space))
@@ -203,7 +205,6 @@ public class LpDisk : MonoBehaviour
         {
             if(musicNamePos.transform.childCount == 0)
             {
-                Debug.Log("work");
                 GameObject n = Instantiate(nameObj);
                 n.transform.parent = musicNamePos.transform;
                 n.transform.position = musicNamePos.transform.position;
@@ -214,7 +215,6 @@ public class LpDisk : MonoBehaviour
 
 
 
-    //???????? ?????? ?????????? ????
     public bool moveToRight = false;
     public bool moveToLeft = false;
 

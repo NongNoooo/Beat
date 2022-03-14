@@ -133,7 +133,6 @@ public class CamMove : MonoBehaviour
         {
             if (_camMove == true && moveFront == false)
             {
-                Debug.Log("Wokr");
                 Invoke("moveTime", 1.0f);
                 transform.localPosition += Vector3.back * 5 * Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,0,-10), 2*Time.deltaTime);

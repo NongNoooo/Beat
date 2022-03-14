@@ -26,7 +26,7 @@ public struct NodeData
 
 public class NoteTool : MonoBehaviour
 {
-    //스트럭트 NodeData를 배열로 인스턴스화
+    //스트럭트 NodeData를 리스트로 인스턴스화
     public List<NodeData> noteData = new List<NodeData>();
 
 
@@ -64,10 +64,6 @@ public class NoteTool : MonoBehaviour
 
     public void NoteSave()
     {
-        
-        //sw.WriteLine("{0},{1}",0,(currentTime- tempTime));
-        //print("0, " + (currentTime- tempTime));
-
         //노드 데이터 값 저장
         NodeData nd;
         nd.index = 0;
@@ -83,8 +79,8 @@ public class NoteTool : MonoBehaviour
         //직렬화 -> 제이슨파일로 배열 넣음
         string json = JsonConvert.SerializeObject(noteData.ToArray());   // Json파일로 밀어넣기
 
-        //경로에 파일 생성
-        File.WriteAllText(Application.dataPath + "/Resources/Data.json", json);  // 파일로 만들기
+        //경로에 있는 Start에서 생성했던 Data.json파일을 수정
+        File.WriteAllText(Application.dataPath + "/Resources/Data.json", json);
         print(json); // 테스트
     }
 

@@ -12,15 +12,17 @@ public class ButtonOn : MonoBehaviour
 
     public GameObject manager;
 
+    //버튼 텍스트 활성화
     public void TextOn()
     {
         buttonText.SetActive(true);
     }
 
+    //버튼 텍스트 비활성화
     public void TextOff()
     {
         buttonText.SetActive(false);
-    }     
+    }
 
     public void StartClick()
     {

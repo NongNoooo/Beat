@@ -19,17 +19,10 @@ public class ButtonClick : MonoBehaviour
     bool isFeel = false;
     bool isBlack = false;
 
-    // Start is called before the first frame update
     void OnEnable()
     {
         music = GameObject.FindGameObjectWithTag("Music");
         _gm = gm.GetComponent<GameManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void GotoTitle()
@@ -41,14 +34,7 @@ public class ButtonClick : MonoBehaviour
     {
         _gm.esc = false;
         Time.timeScale = 1f;
-        //Destroy(music);
         SceneManager.LoadScene("Menu");
-
-        /*if (music.name.Contains("Blind"))
-        {
-            Instantiate(blind);
-        }*/
-
     }
 
     public void ReLoadScene()
