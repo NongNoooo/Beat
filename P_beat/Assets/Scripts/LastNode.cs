@@ -31,18 +31,24 @@ public class LastNode : MonoBehaviour
 
     }
 
+    float curTime = 0;
+
     void EndMenuActive()
     {
+        curTime += Time.deltaTime;
         Time.timeScale = 1f;
         _menu.SetActive(true);
-        _as.Pause();
+
+        if(curTime >= 1.0f)
+        {
+            _as.Pause();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("NodeEnd"))
-        {
-            
+        {          
             EndMenuActive();
         }
     }

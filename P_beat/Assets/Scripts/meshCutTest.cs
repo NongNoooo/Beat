@@ -8,6 +8,69 @@ public class meshCutTest : MonoBehaviour
 
     public float maxDistance;
 
+    int lineNum = 0;
+
+    private void Start()
+    {
+        GetLineNum();
+    }
+
+    void GetLineNum()
+    {
+        if (gameObject.name.Contains("1"))
+        {
+            lineNum = 1;
+        }
+        else if (gameObject.name.Contains("2"))
+        {
+            lineNum = 2;
+        }
+        else if (gameObject.name.Contains("3"))
+        {
+            lineNum = 3;
+        }
+        else if (gameObject.name.Contains("4"))
+        {
+            lineNum = 4;
+        }
+        else if (gameObject.name.Contains("5"))
+        {
+            lineNum = 5;
+        }
+        else if (gameObject.name.Contains("6"))
+        {
+            lineNum = 6;
+        }
+    }
+
+    void MaterialColorChange()
+    {
+        if (lineNum == 1)
+        {
+            capMaterial.SetVector("_EmissionColor", Color.green * 2.4169f);
+        }
+        else if (lineNum == 2)
+        {
+            capMaterial.SetVector("_EmissionColor", Color.yellow * 2.4169f);
+        }
+        else if (lineNum == 3)
+        {
+            capMaterial.SetVector("_EmissionColor", Color.cyan * 2.4169f);
+        }
+        else if (lineNum == 4)
+        {
+            capMaterial.SetVector("_EmissionColor", Color.white * 2.4169f);
+        }
+        else if (lineNum == 5)
+        {
+            capMaterial.SetVector("_EmissionColor", Color.red * 2.4169f);
+        }
+        else if (lineNum == 6)
+        {
+            capMaterial.SetVector("_EmissionColor", Color.blue * 2.4169f);
+        }
+    }
+
     void Update()
     {
         MeshCut();   
@@ -26,6 +89,8 @@ public class meshCutTest : MonoBehaviour
 
             if (victim.CompareTag("Done"))
             {
+                MaterialColorChange();
+
                 pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
 
                 if (!pieces[1].GetComponent<Rigidbody>())
@@ -42,7 +107,7 @@ public class meshCutTest : MonoBehaviour
 
                 rigiL.AddForce(-transform.right * 30);
                 rigiR.AddForce(transform.right * 300);
-                rigiR.AddForce(-transform.forward * 300);
+                rigiR.AddForce(-transform.forward * 800);
 
                 pieces[0].gameObject.name = "L";
                 pieces[1].gameObject.name = "R";

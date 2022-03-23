@@ -8,18 +8,15 @@ public class GradeText : MonoBehaviour
     public GameObject gt;
     public GameObject fail;
 
+    GameObject[] txt;
 
     public void TextPopUp(GameObject a)
     {
-        if (transform.childCount != 0)
+        txt = GameObject.FindGameObjectsWithTag("Grade");
+
+        for(int i = 0; i < txt.Length; i++)
         {
-            //센터 텍스트에 텍스트가 중복생성 안되게
-            //센터 텍스트에 자식으로 생성되었던 오브젝트들을 전부 삭제
-            for(int i = 0; i < transform.childCount; i++)
-            {
-                GameObject n = transform.GetChild(0).gameObject;
-                Destroy(n);
-            }
+            Destroy(txt[i]);
         }
 
         GameObject tx = Instantiate(a, transform.position, transform.rotation);

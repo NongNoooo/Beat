@@ -35,6 +35,7 @@ TagManager:
   - EndMenu
   - LastNode
   - NodeClearBar
+  - Grade
   layers:
   - Default
   - TransparentFX

@@ -126,6 +126,8 @@ public class Parser : MonoBehaviour
 
                         GameObject nodeObj = Instantiate(node[idx]);
 
+                        ColorChange(ref nodeObj, rndnum);
+
                         NodeMove nm = nodeObj.GetComponent<NodeMove>();
 
                         nm._dir = nodeEndPos[rndnum].transform.position - nodeObj.transform.position;
@@ -141,6 +143,36 @@ public class Parser : MonoBehaviour
                     shotCnt++;
                 }
             }
+        }
+    }
+
+    void ColorChange(ref GameObject a, int i)
+    {
+        Material m = a.GetComponent<Renderer>().material;
+
+        if(i == 0)
+        {
+            m.SetVector("_EmissionColor", Color.green * 2.4169f);
+        }
+        else if(i == 1)
+        {
+            m.SetVector("_EmissionColor", Color.yellow * 2.4169f);
+        }
+        else if (i == 2)
+        {
+            m.SetVector("_EmissionColor", Color.cyan * 2.4169f);
+        }
+        else if (i == 3)
+        {
+            m.SetVector("_EmissionColor", Color.white * 2.4169f);
+        }
+        else if (i == 4)
+        {
+            m.SetVector("_EmissionColor", Color.red * 2.4169f);
+        }
+        else if (i == 5)
+        {
+            m.SetVector("_EmissionColor", Color.blue * 2.4169f);
         }
     }
 
